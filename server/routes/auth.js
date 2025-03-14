@@ -9,7 +9,6 @@ const cron = require("node-cron");
 let cronJobs = {};
 let cronJobForTimeZones = {};
 
-//auth.js
 authRouter.post("/api/signup", async (req, res) => {
   try {
     const { name, email, profilePic } = req.body;
@@ -47,11 +46,7 @@ authRouter.post("/api/signup", async (req, res) => {
         taskDeletionByTrashIcon: false,
         taskCardTitle: "",
         projectName: [],
-        // projectName: ['Add a project', 'Add a project', 'Add a project', 'Add a project'],
-
-        // selectedProjectIndex: 0
         selectedContainerIndex: 0,
-
         weeklyTimeframes: [],
         monthlyTimeframes: [],
         yearlyTimeframes: [],
@@ -65,7 +60,6 @@ authRouter.post("/api/signup", async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET
     );
 
-    // Schedule a job to update time zone
     await agendaInstance.schedule("1 second", "update-timezone", {
       userId: user._id,
     });
@@ -518,84 +512,6 @@ authRouter.get("/api/timeframe/yearly", auth, async (req, res) => {
   }
 });
 
-/*
-// En auth.js
-authRouter.post("/delete-project", auth, async (req, res) => {
-  try {
-    const { projectIndex } = req.body;
-    
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Eliminar el proyecto del array
-    if (projectIndex < user.projectName.length) {
-      user.projectName[projectIndex] = 'Add a project';
-      
-      // Eliminar los timeframes asociados a este proyecto
-      user.weeklyTimeframes = user.weeklyTimeframes.filter(
-        tf => tf.projectIndex !== projectIndex
-      );
-      user.monthlyTimeframes = user.monthlyTimeframes.filter(
-        tf => tf.projectIndex !== projectIndex
-      );
-      user.yearlyTimeframes = user.yearlyTimeframes.filter(
-        tf => tf.projectIndex !== projectIndex
-      );
-    }
-
-    await user.save();
-    
-    res.json({
-      message: "Project deleted successfully",
-      projectName: user.projectName,
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-*/
-
-// En auth.js
-
-
-/*
-authRouter.post("/delete-project", auth, async (req, res) => {
-  try {
-    const { projectIndex } = req.body;
-
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Eliminar el proyecto
-    if (projectIndex < user.projectName.length) {
-      // Restablecer el nombre del proyecto
-      user.projectName[projectIndex] = "Add a project";
-
-      // Eliminar todos los timeframes asociados
-      await User.findByIdAndUpdate(req.user, {
-        $pull: {
-          weeklyTimeframes: { projectIndex: projectIndex },
-          monthlyTimeframes: { projectIndex: projectIndex },
-          yearlyTimeframes: { projectIndex: projectIndex },
-        },
-      });
-
-      await user.save();
-    }
-
-    res.json({
-      message: "Project and associated data deleted successfully",
-      projectName: user.projectName,
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
-*/
 
 authRouter.post("/delete-project", auth, async (req, res) => {
   try {
@@ -606,7 +522,6 @@ authRouter.post("/delete-project", auth, async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Eliminar todos los timeframes asociados
     await User.findByIdAndUpdate(req.user, {
       $pull: {
         weeklyTimeframes: { projectIndex: projectIndex },
@@ -615,7 +530,6 @@ authRouter.post("/delete-project", auth, async (req, res) => {
       }
     });
 
-    // Resetear el nombre del proyecto
     if (projectIndex < user.projectName.length) {
       user.projectName[projectIndex] = "add a project";
     }
@@ -659,7 +573,6 @@ authRouter.get("/", auth, async (req, res) => {
       console.log(`Updated time zone for user: ${user._id}`);
     }
 
-    // Check if suscriptionStatusCancelled is true
     if (user.suscriptionStatusCancelled === true) {
       user.getCurrentTimeAfterRefresh = new Date();
       if (user.getCurrentTimeAfterRefresh > user.nextBillingTime) {
@@ -668,13 +581,12 @@ authRouter.get("/", auth, async (req, res) => {
       }
       await user.save();
     }
-    // Schedule the cron job using Agenda
     if (!cronJobForTimeZones[user._id]) {
       cronJobForTimeZones[user._id] = agendaInstance.create(
         " update-time-zones",
         { message: `Updating time zones for user ${user._id}` }
       );
-      cronJobForTimeZones[user._id].repeatEvery("* * * * * *"); // Run the job daily at midnight
+      cronJobForTimeZones[user._id].repeatEvery("* * * * * *"); 
       cronJobForTimeZones[user._id].save();
       console.log(`Cron job scheduled for user ${user._id}`);
     }
@@ -695,10 +607,6 @@ authRouter.post("/api/logout", auth, async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // // Cancel the scheduled job
-    // await agendaInstance.cancel({ name: 'update-timezone', 'data.userId': user._id });
-    // console.log(`Canceled job 'update-timezone' for user: ${user._id}`);
-    // Clear the cron job for this user
     if (cronJobForTimeZones[user._id]) {
       console.log(`Clearing cron job for user ${user._id}`);
 
@@ -726,7 +634,6 @@ authRouter.delete(
         return res.status(404).json({ error: "User not found" });
       }
 
-      // Clear the cron job for this user
       if (cronJobForTimeZones[user._id]) {
         console.log(`Clearing cron job for user ${user._id}`);
 
@@ -734,9 +641,6 @@ authRouter.delete(
         delete cronJobForTimeZones[user._id];
         console.log(`Cron job cleared for user ${user._id}`);
       }
-      // // Cancel the scheduled job
-      // await agendaInstance.cancel({ name: 'update-timezone', 'data.userId': user._id }); `
-      // console.log(`Canceled job 'update-timezone' for deleted user: ${user._id}`);
 
       res.json({ msg: "Account deleted successfully" });
     } catch (e) {
@@ -747,10 +651,8 @@ authRouter.delete(
 
 module.exports = authRouter;
 
-// Esta línea define una ruta POST en el router de autenticación
 authRouter.post("/update-settings", auth, async (req, res) => {
   try {
-    // Extraemos los datos del cuerpo de la solicitud usando desestructuración
     const {
       pomodoroTimer,
       shortBreakTimer,
@@ -760,19 +662,16 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       browserNotificationsEnabled,
     } = req.body;
 
-    // Definimos una lista de sonidos permitidos
     const allowedSounds = [
       "assets/sounds/Flashpoint.wav",
       "assets/sounds/Plink.wav",
       "assets/sounds/Blink.wav",
     ];
 
-    // Verificamos si el sonido seleccionado está en la lista de permitidos
     if (!allowedSounds.includes(selectedSound)) {
       return res.status(400).json({ error: "Invalid sound selection" });
     }
 
-    // Verificamos que todos los campos requeridos estén presentes
     if (
       pomodoroTimer === undefined ||
       shortBreakTimer === undefined ||
@@ -787,13 +686,11 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       });
     }
 
-    // Buscamos al usuario en la base de datos usando el ID proporcionado por el middleware de autenticación
     const user = await User.findById(req.user);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Actualizamos los campos del usuario con los nuevos valores
     user.pomodoroTimer = pomodoroTimer;
     user.shortBreakTimer = shortBreakTimer;
     user.longBreakTimer = longBreakTimer;
@@ -801,10 +698,8 @@ authRouter.post("/update-settings", auth, async (req, res) => {
     user.selectedSound = selectedSound;
     user.browserNotificationsEnabled = browserNotificationsEnabled;
 
-    // Guardamos los cambios en la base de datos
     await user.save();
 
-    // Enviamos una respuesta exitosa con los datos actualizados
     res.json({
       message: "Settings updated successfully",
       pomodoroTimer: user.pomodoroTimer,
@@ -815,7 +710,6 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       browserNotificationsEnabled: user.browserNotificationsEnabled,
     });
   } catch (e) {
-    // Si ocurre algún error durante el proceso, enviamos una respuesta de error
     res.status(500).json({ error: e.message });
   }
 });
