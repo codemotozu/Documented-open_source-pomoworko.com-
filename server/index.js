@@ -1,79 +1,53 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config(); 
+const express = require('express');  // Import Express framework.  // Importiert das Express-Framework.
+const mongoose = require('mongoose');  // Import Mongoose for MongoDB interactions.  // Importiert Mongoose für die Interaktion mit MongoDB.
+const dotenv = require('dotenv');  // Import dotenv to load environment variables.  // Importiert dotenv, um Umgebungsvariablen zu laden.
+dotenv.config();  // Load environment variables from .env file.  // Lädt Umgebungsvariablen aus der .env-Datei.
 
-const path = require('path');
-const cors = require('cors');
-const authRouter = require('./routes/auth');
-const paypalRouter = require('./routes/paypal'); 
-const agendaInstance = require('./config/agenda-config');
+const path = require('path');  // Import path module to handle file paths.  // Importiert das Path-Modul zur Verarbeitung von Dateipfaden.
+const cors = require('cors');  // Import CORS to enable cross-origin requests.  // Importiert CORS, um Cross-Origin-Anfragen zu ermöglichen.
+const authRouter = require('./routes/auth');  // Import authentication routes.  // Importiert die Authentifizierungsrouten.
+const paypalRouter = require('./routes/paypal');  // Import PayPal routes.  // Importiert die PayPal-Routen.
+const agendaInstance = require('./config/agenda-config');  // Import and configure Agenda for job scheduling.  // Importiert und konfiguriert Agenda für die Auftragsplanung.
 
-dotenv.config(); 
-// * IF YOU WANT TO WORK THE APP IN PRODUCTION YOU HAVE 
-// * TO ADD "process.env.PORT" auth_services.dart AND THE FRONT END GOOGLE API
-// * IN THE "web/index.html" FILE
+dotenv.config();  // Load environment variables again (redundant).  // Lädt erneut Umgebungsvariablen (überflüssig).
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;  // Define server port from environment or default to 3001.  // Definiert den Serverport aus der Umgebung oder standardmäßig auf 3001.
 
-const app = express();
+const app = express();  // Create an Express application.  // Erstellt eine Express-Anwendung.
 
-if(process.env.NODE_ENV === 'production') {
-   app.use((req, res, next) => {
-     if (req.header('x-forwarded-proto') !== 'https')
-       res.redirect(`https://${req.header('host')}${req.url}`)
-     else
+if(process.env.NODE_ENV === 'production') {  // Check if the app is in production mode.  // Überprüft, ob die App im Produktionsmodus ist.
+   app.use((req, res, next) => {  // Middleware to enforce HTTPS in production.  // Middleware, um HTTPS im Produktionsmodus zu erzwingen.
+     if (req.header('x-forwarded-proto') !== 'https')  // Check if request is not HTTPS.  // Prüft, ob die Anfrage nicht über HTTPS erfolgt.
+       res.redirect(`https://${req.header('host')}${req.url}`)  // Redirect to HTTPS.  // Leitet auf HTTPS um.
+     else  // Otherwise, proceed to next middleware.  // Andernfalls weiter zur nächsten Middleware.
        next()
    })
 }
 
-app.use(cors());
-app.use(express.json());
-app.use('/auth',authRouter);
-app.use('/paypal', paypalRouter);
+app.use(cors());  // Enable CORS for cross-origin requests.  // Aktiviert CORS für Cross-Origin-Anfragen.
+app.use(express.json());  // Enable JSON parsing for request bodies.  // Aktiviert JSON-Parsing für Anfragetexte.
+app.use('/auth',authRouter);  // Use authentication routes at /auth.  // Verwendet Authentifizierungsrouten unter /auth.
+app.use('/paypal', paypalRouter);  // Use PayPal routes at /paypal.  // Verwendet PayPal-Routen unter /paypal.
 
-const DB =  process.env.MONGO_DB_URL;
+const DB = process.env.MONGO_DB_URL;  // Get MongoDB connection string from environment variables.  // Holt die MongoDB-Verbindungszeichenfolge aus Umgebungsvariablen.
 
+mongoose.connect(DB, {}).then(() => {  // Connect to MongoDB database.  // Stellt eine Verbindung zur MongoDB-Datenbank her.
+   console.log("Connection successful");  // Log successful connection.  // Gibt eine erfolgreiche Verbindung aus.
+   agendaInstance.start();  // Start the Agenda job scheduler.  // Startet den Agenda-Job-Scheduler.
+   console.log('Agenda instance started');  // Log that Agenda has started.  // Gibt aus, dass die Agenda-Instanz gestartet wurde.
 
-// mongoose.connect(DB).then(() => {
-//    console.log("Connection successful");
-// }).catch((err) => {
-//    console.log(err);
-
-// });
-
-mongoose.connect(DB, {
- }).then(() => {
-   console.log("Connection successful");
-   agendaInstance.start(); // Start the Agenda instance
-   console.log('Agenda instance started');
-
- }).catch((err) => {
-   console.log(err);
+ }).catch((err) => {  // Handle connection errors.  // Behandelt Verbindungsfehler.
+   console.log(err);  // Log error to console.  // Gibt den Fehler in der Konsole aus.
  });
 
-// Serve static files from the Flutter web app build output directory
+// Serve static files from the Flutter web app build output directory.  // Stellt statische Dateien aus dem Flutter-Web-App-Build-Verzeichnis bereit.
 app.use(express.static(path.join(__dirname,)));
 
-// Serve the index.html file as the entry point to your Flutter web app
-app.get('*', (req, res) => {
-   res.sendFile(path.join(__dirname, 'index.html'));
+// Serve the index.html file as the entry point to your Flutter web app.  // Stellt die index.html-Datei als Einstiegspunkt für die Flutter-Web-App bereit.
+app.get('*', (req, res) => {  // Catch all routes and serve index.html.  // Fängt alle Routen ab und liefert index.html aus.
+   res.sendFile(path.join(__dirname, 'index.html'));  // Send index.html file.  // Sendet die index.html-Datei.
 });
 
-/**
- * 
- * 
- // Servir archivos estáticos desde el directorio 'web'
-app.use(express.static(path.join(__dirname, '..', 'web')));
-
-// Servir el archivo index.html como punto de entrada a tu aplicación web Flutter
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'web', 'index.html'));
-});
-
- */
-
-
-app.listen(PORT, () => {
-   console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, () => {  // Start the server and listen on the specified port.  // Startet den Server und lauscht auf dem angegebenen Port.
+   console.log(`Server is running on port ${PORT}`);  // Log server start message.  // Gibt die Startnachricht des Servers aus.
 });
