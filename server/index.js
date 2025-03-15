@@ -6,8 +6,6 @@ dotenv.config();  // Load environment variables from .env file.  // Lädt Umgebu
 const path = require('path');  // Import path module to handle file paths.  // Importiert das Path-Modul zur Verarbeitung von Dateipfaden.
 const cors = require('cors');  // Import CORS to enable cross-origin requests.  // Importiert CORS, um Cross-Origin-Anfragen zu ermöglichen.
 const authRouter = require('./routes/auth');  // Import authentication routes.  // Importiert die Authentifizierungsrouten.
-const paypalRouter = require('./routes/paypal');  // Import PayPal routes.  // Importiert die PayPal-Routen.
-const agendaInstance = require('./config/agenda-config');  // Import and configure Agenda for job scheduling.  // Importiert und konfiguriert Agenda für die Auftragsplanung.
 
 dotenv.config();  // Load environment variables again (redundant).  // Lädt erneut Umgebungsvariablen (überflüssig).
 
