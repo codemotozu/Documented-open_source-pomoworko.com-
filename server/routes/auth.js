@@ -151,28 +151,10 @@ authRouter.post("/api/login", async (req, res) => {  // Defines a POST route for
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-
-authRouter.post("/update-settings", auth, async (req, res) => {
+authRouter.post("/update-settings", auth, async (req, res) => {  // Defines a POST route for updating settings, with authentication middleware.  // Definiert eine POST-Route zum Aktualisieren der Einstellungen mit Authentifizierungs-Middleware.
   try {
-    const {
+    const {  // Extracts fields from the request body.  // Extrahiert Felder aus dem Anfrage-Body.
       pomodoroTimer,
       shortBreakTimer,
       longBreakTimer,
@@ -184,17 +166,17 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       longBreakColor,
     } = req.body;
 
-    const allowedSounds = [
+    const allowedSounds = [  // Defines an array of allowed sound file paths.  // Definiert ein Array zulässiger Sounddateipfade.
       "assets/sounds/Flashpoint.wav",
       "assets/sounds/Plink.wav",
       "assets/sounds/Blink.wav",
     ];
 
-    if (!allowedSounds.includes(selectedSound)) {
-      return res.status(400).json({ error: "Invalid sound selection" });
+    if (!allowedSounds.includes(selectedSound)) {  // Checks if the selected sound is valid.  // Überprüft, ob der ausgewählte Sound gültig ist.
+      return res.status(400).json({ error: "Invalid sound selection" });  // Returns an error if the sound is invalid.  // Gibt einen Fehler zurück, wenn der Sound ungültig ist.
     }
 
-    if (
+    if (  // Validates that all required fields are present.  // Überprüft, ob alle erforderlichen Felder vorhanden sind.
       pomodoroTimer === undefined ||
       shortBreakTimer === undefined ||
       longBreakTimer === undefined ||
@@ -205,32 +187,32 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       shortBreakColor === undefined ||
       longBreakColor === undefined
     ) {
-      return res.status(400).json({
+      return res.status(400).json({  // Returns an error if any required field is missing.  // Gibt einen Fehler zurück, wenn ein erforderliches Feld fehlt.
         error:
           "pomodoroTimer, shortBreakTimer, longBreakTimer and longBreakInterval are required",
       });
     }
 
-    const user = await User.findById(req.user);
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns an error if the user is not found.  // Gibt einen Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
 
-    user.pomodoroTimer = pomodoroTimer;
-    user.shortBreakTimer = shortBreakTimer;
-    user.longBreakTimer = longBreakTimer;
-    user.longBreakInterval = longBreakInterval;
-    user.selectedSound = selectedSound;
-    user.browserNotificationsEnabled = browserNotificationsEnabled;
-    user.pomodoroColor = pomodoroColor;
-    user.shortBreakColor = shortBreakColor;
-    user.longBreakColor = longBreakColor;
+    user.pomodoroTimer = pomodoroTimer;  // Updates the user's pomodoro timer.  // Aktualisiert den Pomodoro-Timer des Benutzers.
+    user.shortBreakTimer = shortBreakTimer;  // Updates the user's short break timer.  // Aktualisiert den Kurzpausen-Timer des Benutzers.
+    user.longBreakTimer = longBreakTimer;  // Updates the user's long break timer.  // Aktualisiert den Langpausen-Timer des Benutzers.
+    user.longBreakInterval = longBreakInterval;  // Updates the user's long break interval.  // Aktualisiert das Langpausen-Intervall des Benutzers.
+    user.selectedSound = selectedSound;  // Updates the user's selected sound.  // Aktualisiert den ausgewählten Sound des Benutzers.
+    user.browserNotificationsEnabled = browserNotificationsEnabled;  // Updates notification settings.  // Aktualisiert die Benachrichtigungseinstellungen.
+    user.pomodoroColor = pomodoroColor;  // Updates the Pomodoro color setting.  // Aktualisiert die Pomodoro-Farbeinstellung.
+    user.shortBreakColor = shortBreakColor;  // Updates the short break color setting.  // Aktualisiert die Kurzpausen-Farbeinstellung.
+    user.longBreakColor = longBreakColor;  // Updates the long break color setting.  // Aktualisiert die Langpausen-Farbeinstellung.
 
-    await user.save();
+    await user.save();  // Saves the updated user settings to the database.  // Speichert die aktualisierten Benutzereinstellungen in der Datenbank.
 
-    res.json({
-      message: "Settings updated successfully",
+    res.json({  // Sends a response with the updated settings.  // Sendet eine Antwort mit den aktualisierten Einstellungen.
+      message: "Settings updated successfully",  // Confirmation message.  // Bestätigungsnachricht.
       pomodoroTimer: user.pomodoroTimer,
       shortBreakTimer: user.shortBreakTimer,
       longBreakTimer: user.longBreakTimer,
@@ -241,494 +223,371 @@ authRouter.post("/update-settings", auth, async (req, res) => {
       shortBreakColor: user.shortBreakColor,
       longBreakColor: user.longBreakColor,
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error if an exception occurs.  // Gibt einen 500-Fehler zurück, wenn eine Ausnahme auftritt.
   }
 });
 
-authRouter.post("/update-pomodoro-states", auth, async (req, res) => {
-  try {
-    const { pomodoroStates } = req.body;
-
-    if (pomodoroStates === undefined) {
-      return res.status(400).json({
-        error: "pomodoroStates is required",
+  
+authRouter.post("/update-pomodoro-states", auth, async (req, res) => {  // Defines a POST route for updating Pomodoro states, with authentication middleware.  // Definiert eine POST-Route zum Aktualisieren der Pomodoro-Zustände mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const { pomodoroStates } = req.body;  // Extracts pomodoroStates from the request body.  // Extrahiert pomodoroStates aus dem Anfrage-Body.
+    if (pomodoroStates === undefined) {  // Checks if pomodoroStates is provided.  // Überprüft, ob pomodoroStates vorhanden ist.
+      return res.status(400).json({  // Returns a 400 error if pomodoroStates is missing.  // Gibt einen 400-Fehler zurück, wenn pomodoroStates fehlt.
+        error: "pomodoroStates is required",  // Error message for missing pomodoroStates.  // Fehlermeldung für fehlende pomodoroStates.
       });
     }
-
-    const user = await User.findById(req.user);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    user.pomodoroStates = pomodoroStates;
-    await user.save();
-
-    res.json({
-      message: "Pomodoro states updated successfully",
-      pomodoroStates: user.pomodoroStates,
+    user.pomodoroStates = pomodoroStates;  // Updates the user's Pomodoro states.  // Aktualisiert die Pomodoro-Zustände des Benutzers.
+    await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
+    res.json({  // Sends a success response with updated data.  // Sendet eine Erfolgsantwort mit aktualisierten Daten.
+      message: "Pomodoro states updated successfully",  // Success message.  // Erfolgsmeldung.
+      pomodoroStates: user.pomodoroStates,  // Returns the updated pomodoroStates.  // Gibt die aktualisierten pomodoroStates zurück.
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
-authRouter.post("/card-add-todo-task", auth, async (req, res) => {
-  try {
+authRouter.post("/card-add-todo-task", auth, async (req, res) => {  // Defines a POST route for adding todo tasks, with authentication middleware.  // Definiert eine POST-Route zum Hinzufügen von Todo-Aufgaben mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
     const { toDoHappySadToggle, taskDeletionByTrashIcon, taskCardTitle } =
-      req.body;
-
+      req.body;  // Extracts task-related fields from the request body.  // Extrahiert aufgabenbezogene Felder aus dem Anfrage-Body.
     if (
       toDoHappySadToggle === undefined ||
       taskDeletionByTrashIcon === undefined ||
       taskCardTitle === undefined
-    ) {
-      return res.status(400).json({
-        error: "toDoHappySadToggle is required",
+    ) {  // Checks if all required fields are provided.  // Überprüft, ob alle erforderlichen Felder vorhanden sind.
+      return res.status(400).json({  // Returns a 400 error if any required field is missing.  // Gibt einen 400-Fehler zurück, wenn ein erforderliches Feld fehlt.
+        error: "toDoHappySadToggle is required",  // Error message for missing fields (note: this message is not comprehensive).  // Fehlermeldung für fehlende Felder (Hinweis: Diese Meldung ist nicht vollständig).
       });
     }
-
-    const user = await User.findById(req.user);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    user.toDoHappySadToggle = toDoHappySadToggle;
-    user.taskDeletionByTrashIcon = taskDeletionByTrashIcon;
-    user.taskCardTitle = taskCardTitle;
-    await user.save();
-
-    res.json({
-      message: "Todo task added successfully",
-      toDoHappySadToggle: user.toDoHappySadToggle,
-      taskDeletionByTrashIcon: user.taskDeletionByTrashIcon,
-      taskCardTitle: user.taskCardTitle,
+    user.toDoHappySadToggle = toDoHappySadToggle;  // Updates the user's todo toggle state.  // Aktualisiert den ToDo-Umschaltzustand des Benutzers.
+    user.taskDeletionByTrashIcon = taskDeletionByTrashIcon;  // Updates the user's task deletion preference.  // Aktualisiert die Aufgabenlöschungspräferenz des Benutzers.
+    user.taskCardTitle = taskCardTitle;  // Updates the user's task card title.  // Aktualisiert den Aufgabenkartentitel des Benutzers.
+    await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
+    res.json({  // Sends a success response with updated data.  // Sendet eine Erfolgsantwort mit aktualisierten Daten.
+      message: "Todo task added successfully",  // Success message.  // Erfolgsmeldung.
+      toDoHappySadToggle: user.toDoHappySadToggle,  // Returns the updated toggle state.  // Gibt den aktualisierten Umschaltzustand zurück.
+      taskDeletionByTrashIcon: user.taskDeletionByTrashIcon,  // Returns the updated deletion preference.  // Gibt die aktualisierte Löschungspräferenz zurück.
+      taskCardTitle: user.taskCardTitle,  // Returns the updated task card title.  // Gibt den aktualisierten Aufgabenkartentitel zurück.
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
-authRouter.post("/update-project", auth, async (req, res) => {
-  try {
-    const { projectName, index } = req.body;
-
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+ 
+authRouter.post("/update-project", auth, async (req, res) => {  // Defines a POST route for updating projects, with authentication middleware.  // Definiert eine POST-Route zum Aktualisieren von Projekten mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const { projectName, index } = req.body;  // Extracts projectName and index from the request body.  // Extrahiert projectName und index aus dem Anfrage-Body.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    if (!user.projectName) {
-      user.projectName = [];
+    if (!user.projectName) {  // Checks if user.projectName array exists.  // Überprüft, ob das user.projectName-Array existiert.
+      user.projectName = [];  // Initializes an empty array if projectName doesn't exist.  // Initialisiert ein leeres Array, falls projectName nicht existiert.
     }
-
-    if (index >= user.projectName.length) {
+    if (index >= user.projectName.length) {  // Checks if the provided index is beyond the current array length.  // Überprüft, ob der angegebene Index außerhalb der aktuellen Array-Länge liegt.
       user.projectName = [
         ...user.projectName,
-        ...Array(index - user.projectName.length + 1).fill("add a project"),
+        ...Array(index - user.projectName.length + 1).fill("add a project"),  // Expands array with placeholder values to reach the desired index.  // Erweitert das Array mit Platzhaltern, um den gewünschten Index zu erreichen.
       ];
     }
-    user.projectName[index] = projectName;
-
-    await user.save();
-
-    res.json({
-      message: "Project name and selected index updated successfully",
-      projectName: user.projectName,
+    +
+    user.projectName[index] = projectName;  // Updates the project name at the specified index.  // Aktualisiert den Projektnamen am angegebenen Index.
+    await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
+    res.json({  // Sends a success response with updated data.  // Sendet eine Erfolgsantwort mit aktualisierten Daten.
+      message: "Project name and selected index updated successfully",  // Success message.  // Erfolgsmeldung.
+      projectName: user.projectName,  // Returns the updated projectName array.  // Gibt das aktualisierte projectName-Array zurück.
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
-authRouter.post("/update-container-index", auth, async (req, res) => {
-  try {
-    const { selectedContainerIndex } = req.body;
-
-    if (selectedContainerIndex === undefined) {
-      return res.status(400).json({
-        error: "selectedContainerIndex is required",
+authRouter.post("/update-container-index", auth, async (req, res) => {  // Defines a POST route for updating the container index, with authentication middleware.  // Definiert eine POST-Route zum Aktualisieren des Container-Index mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const { selectedContainerIndex } = req.body;  // Extracts selectedContainerIndex from the request body.  // Extrahiert selectedContainerIndex aus dem Anfrage-Body.
+    if (selectedContainerIndex === undefined) {  // Checks if selectedContainerIndex is provided.  // Überprüft, ob selectedContainerIndex vorhanden ist.
+      return res.status(400).json({  // Returns a 400 error if selectedContainerIndex is missing.  // Gibt einen 400-Fehler zurück, wenn selectedContainerIndex fehlt.
+        error: "selectedContainerIndex is required",  // Error message for missing selectedContainerIndex.  // Fehlermeldung für fehlendes selectedContainerIndex.
       });
     }
-
-    const user = await User.findById(req.user);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    user.selectedContainerIndex = selectedContainerIndex;
-
-    await user.save();
-
-    res.json({
-      message: "selectedContainerIndex updated successfully",
-
-      selectedContainerIndex: user.selectedContainerIndex,
+    user.selectedContainerIndex = selectedContainerIndex;  // Updates the user's selectedContainerIndex.  // Aktualisiert den selectedContainerIndex des Benutzers.
+    await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
+    res.json({  // Sends a success response with updated data.  // Sendet eine Erfolgsantwort mit aktualisierten Daten.
+      message: "selectedContainerIndex updated successfully",  // Success message.  // Erfolgsmeldung.
+      selectedContainerIndex: user.selectedContainerIndex,  // Returns the updated selectedContainerIndex.  // Gibt den aktualisierten selectedContainerIndex zurück.
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
-});
-
-// Add timeframe data for a project
-authRouter.post("/api/timeframe/add", auth, async (req, res) => {
-  try {
-    const { projectIndex, date, duration, timeframeType } = req.body;
-
-    // Create new timeframe entry
-    const newTimeframe = {
-      projectIndex,
-      date: new Date(date),
-      duration, // Duration in seconds
+}); 
+  
+authRouter.post("/api/timeframe/add", auth, async (req, res) => {  // Defines a POST route for adding timeframe data, with authentication middleware.  // Definiert eine POST-Route zum Hinzufügen von Zeitrahmen-Daten mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const { projectIndex, date, duration, timeframeType } = req.body;  // Extracts timeframe data from the request body.  // Extrahiert Zeitrahmen-Daten aus dem Anfrage-Body.
+    
+    const newTimeframe = {  // Creates a new timeframe object.  // Erstellt ein neues Zeitrahmen-Objekt.3
+      projectIndex,  // Project index to associate with this timeframe.  // Projekt-Index, der mit diesem Zeitrahmen verknüpft wird.
+      date: new Date(date),  // Converts the date string to a Date object.  // Konvertiert den Datums-String in ein Date-Objekt.
+      duration,  // Duration of the timeframe.  // Dauer des Zeitrahmens.
     };
-
-    const updateQuery = {};
-    const currentDate = new Date(date);
-
-    switch (timeframeType) {
-      case "weekly":
-        // First pull any existing entries
-        await User.findByIdAndUpdate(req.user, {
-          $pull: {
-            weeklyTimeframes: {
-              projectIndex: projectIndex,
-              date: {
-                $gte: new Date(currentDate.setHours(0, 0, 0, 0)),
-                $lt: new Date(currentDate.setHours(23, 59, 59, 999)),
+    const updateQuery = {};  // Initializes an empty update query for MongoDB.  // Initialisiert eine leere Update-Abfrage für MongoDB.
+    const currentDate = new Date(date);  // Creates a Date object for date operations.  // Erstellt ein Date-Objekt für Datums-Operationen.
+    switch (timeframeType) {  // Switches behavior based on the timeframe type.  // Unterscheidet das Verhalten basierend auf dem Zeitrahmentyp.
+      case "weekly":  // For weekly timeframes.  // Für wöchentliche Zeitrahmen.
+        await User.findByIdAndUpdate(req.user, {  // Removes any existing weekly timeframe for the same day and project.  // Entfernt alle bestehenden wöchentlichen Zeitrahmen für denselben Tag und dasselbe Projekt.
+          $pull: {  // MongoDB operator to remove elements from an array.  // MongoDB-Operator zum Entfernen von Elementen aus einem Array.
+            weeklyTimeframes: {  // Target array to modify.  // Ziel-Array, das geändert werden soll.
+              projectIndex: projectIndex,  // Matches documents with this project index.  // Findet Dokumente mit diesem Projekt-Index.
+              date: {  // Date range condition.  // Datumsbereichsbedingung.
+                $gte: new Date(currentDate.setHours(0, 0, 0, 0)),  // Start of the day.  // Beginn des Tages.
+                $lt: new Date(currentDate.setHours(23, 59, 59, 999)),  // End of the day.  // Ende des Tages.
               },
             },
           },
         });
-
-        // Then push the new entry
-        updateQuery.$push = { weeklyTimeframes: newTimeframe };
+        updateQuery.$push = { weeklyTimeframes: newTimeframe };  // Sets up query to add new timeframe to weekly array.  // Richtet die Abfrage ein, um einen neuen Zeitrahmen zum wöchentlichen Array hinzuzufügen.
         break;
-
-      case "monthly":
-        await User.findByIdAndUpdate(req.user, {
-          $pull: {
-            monthlyTimeframes: {
-              projectIndex: projectIndex,
-              date: {
-                $gte: new Date(currentDate.setHours(0, 0, 0, 0)),
-                $lt: new Date(currentDate.setHours(23, 59, 59, 999)),
+      case "monthly":  // For monthly timeframes.  // Für monatliche Zeitrahmen.
+        await User.findByIdAndUpdate(req.user, {  // Removes any existing monthly timeframe for the same day and project.  // Entfernt alle bestehenden monatlichen Zeitrahmen für denselben Tag und dasselbe Projekt.
+          $pull: {  // MongoDB operator to remove elements from an array.  // MongoDB-Operator zum Entfernen von Elementen aus einem Array.
+            monthlyTimeframes: {  // Target array to modify.  // Ziel-Array, das geändert werden soll.
+              projectIndex: projectIndex,  // Matches documents with this project index.  // Findet Dokumente mit diesem Projekt-Index.
+              date: {  // Date range condition.  // Datumsbereichsbedingung.
+                $gte: new Date(currentDate.setHours(0, 0, 0, 0)),  // Start of the day.  // Beginn des Tages.
+                $lt: new Date(currentDate.setHours(23, 59, 59, 999)),  // End of the day.  // Ende des Tages.
               },
             },
           },
         });
-
-        updateQuery.$push = { monthlyTimeframes: newTimeframe };
+        updateQuery.$push = { monthlyTimeframes: newTimeframe };  // Sets up query to add new timeframe to monthly array.  // Richtet die Abfrage ein, um einen neuen Zeitrahmen zum monatlichen Array hinzuzufügen.
         break;
-
-      case "yearly":
-        await User.findByIdAndUpdate(req.user, {
-          $pull: {
-            yearlyTimeframes: {
-              projectIndex: projectIndex,
-              date: {
+      case "yearly":  // For yearly timeframes.  // Für jährliche Zeitrahmen.
+        await User.findByIdAndUpdate(req.user, {  // Removes any existing yearly timeframe for the same month and project.  // Entfernt alle bestehenden jährlichen Zeitrahmen für denselben Monat und dasselbe Projekt.
+          $pull: {  // MongoDB operator to remove elements from an array.  // MongoDB-Operator zum Entfernen von Elementen aus einem Array.
+            yearlyTimeframes: {  // Target array to modify.  // Ziel-Array, das geändert werden soll.
+              projectIndex: projectIndex,  // Matches documents with this project index.  // Findet Dokumente mit diesem Projekt-Index.
+              date: {  // Date range condition for the whole month.  // Datumsbereichsbedingung für den gesamten Monat.
                 $gte: new Date(
-                  Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), 1)
+                  Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), 1)  // First day of the month.  // Erster Tag des Monats.
                 ),
                 $lt: new Date(
                   Date.UTC(
                     currentDate.getFullYear(),
                     currentDate.getMonth() + 1,
                     0
-                  )
+                  )  // Last day of the month.  // Letzter Tag des Monats.
                 ),
               },
             },
           },
         });
-
-        updateQuery.$push = { yearlyTimeframes: newTimeframe };
+        updateQuery.$push = { yearlyTimeframes: newTimeframe };  // Sets up query to add new timeframe to yearly array.  // Richtet die Abfrage ein, um einen neuen Zeitrahmen zum jährlichen Array hinzuzufügen.
         break;
-
-      default:
-        return res.status(400).json({ error: "Invalid timeframe type" });
+      default:  // For invalid timeframe types.  // Für ungültige Zeitrahmentypen.
+        return res.status(400).json({ error: "Invalid timeframe type" });  // Returns an error for invalid timeframe type.  // Gibt einen Fehler für ungültige Zeitrahmentypen zurück.
     }
-
-    // Execute the update
-    const user = await User.findByIdAndUpdate(req.user, updateQuery, {
-      new: true,
-      runValidators: true,
+    const user = await User.findByIdAndUpdate(req.user, updateQuery, {  // Updates the user document with the new timeframe.  // Aktualisiert das Benutzerdokument mit dem neuen Zeitrahmen.
+      new: true,  // Returns the updated document.  // Gibt das aktualisierte Dokument zurück.
+      runValidators: true,  // Runs validators on the updated document.  // Führt Validatoren für das aktualisierte Dokument aus.
     });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    res.json({ message: "Time frame data added successfully" });
-  } catch (e) {
-    console.error("Error in /api/timeframe/add:", e);
-    res.status(500).json({ error: e.message });
+    res.json({ message: "Time frame data added successfully" });  // Sends a success response.  // Sendet eine Erfolgsantwort.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    console.error("Error in /api/timeframe/add:", e);  // Logs the error to the console.  // Protokolliert den Fehler in der Konsole.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
+ 
 
-// Get weekly time frame data endpoint
-authRouter.get("/api/timeframe/weekly", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+// Get weekly time frame data endpoint  // Retrieves the weekly timeframe data for the user.  // Ruft die wöchentlichen Zeitrahmendaten für den Benutzer ab.
+authRouter.get("/api/timeframe/weekly", auth, async (req, res) => {  // Defines a GET route for weekly timeframe data, with authentication middleware.  // Definiert eine GET-Route für wöchentliche Zeitrahmendaten mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    const lastWeek = new Date();
-    lastWeek.setDate(lastWeek.getDate() - 7);
-
-    const weeklyData = user.weeklyTimeframes.filter(
-      (timeframe) => timeframe.date >= lastWeek
+    const lastWeek = new Date();  // Creates a new date object for date calculations.  // Erstellt ein neues Datumsobjekt für Datumsberechnungen.
+    lastWeek.setDate(lastWeek.getDate() - 7);  // Sets the date to 7 days ago.  // Setzt das Datum auf 7 Tage zurück.
+    const weeklyData = user.weeklyTimeframes.filter(  // Filters the weekly timeframes array.  // Filtert das Array der wöchentlichen Zeitrahmen.
+      (timeframe) => timeframe.date >= lastWeek  // Keeps only timeframes from the last 7 days.  // Behält nur Zeitrahmen der letzten 7 Tage.
     );
-
-    res.json(weeklyData);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.json(weeklyData);  // Returns the filtered weekly timeframe data.  // Gibt die gefilterten wöchentlichen Zeitrahmendaten zurück.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
-});
+});  
 
-// Get monthly time frame data endpoint
-authRouter.get("/api/timeframe/monthly", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+// Get monthly time frame data endpoint  // Retrieves the monthly timeframe data for the user.  // Ruft die monatlichen Zeitrahmendaten für den Benutzer ab.
+authRouter.get("/api/timeframe/monthly", auth, async (req, res) => {  // Defines a GET route for monthly timeframe data, with authentication middleware.  // Definiert eine GET-Route für monatliche Zeitrahmendaten mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    const lastMonth = new Date();
-    lastMonth.setMonth(lastMonth.getMonth() - 1);
-
-    const monthlyData = user.monthlyTimeframes.filter(
-      (timeframe) => timeframe.date >= lastMonth
+    const lastMonth = new Date();  // Creates a new date object for date calculations.  // Erstellt ein neues Datumsobjekt für Datumsberechnungen.
+    lastMonth.setMonth(lastMonth.getMonth() - 1);  // Sets the date to 1 month ago.  // Setzt das Datum auf 1 Monat zurück.
+    const monthlyData = user.monthlyTimeframes.filter(  // Filters the monthly timeframes array.  // Filtert das Array der monatlichen Zeitrahmen.
+      (timeframe) => timeframe.date >= lastMonth  // Keeps only timeframes from the last month.  // Behält nur Zeitrahmen des letzten Monats.
     );
-
-    res.json(monthlyData);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.json(monthlyData);  // Returns the filtered monthly timeframe data.  // Gibt die gefilterten monatlichen Zeitrahmendaten zurück.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
-// Get yearly time frame data endpoint
-authRouter.get("/api/timeframe/yearly", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+  
+// Get yearly time frame data endpoint  // Retrieves the yearly timeframe data for the user.  // Ruft die jährlichen Zeitrahmendaten für den Benutzer ab.
+authRouter.get("/api/timeframe/yearly", auth, async (req, res) => {  // Defines a GET route for yearly timeframe data, with authentication middleware.  // Definiert eine GET-Route für jährliche Zeitrahmendaten mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    const lastYear = new Date();
-    lastYear.setFullYear(lastYear.getFullYear() - 1);
-
-    const yearlyData = user.yearlyTimeframes.filter(
-      (timeframe) => timeframe.date >= lastYear
+    const lastYear = new Date();  // Creates a new date object for date calculations.  // Erstellt ein neues Datumsobjekt für Datumsberechnungen.
+    lastYear.setFullYear(lastYear.getFullYear() - 1);  // Sets the date to 1 year ago.  // Setzt das Datum auf 1 Jahr zurück.
+    const yearlyData = user.yearlyTimeframes.filter(  // Filters the yearly timeframes array.  // Filtert das Array der jährlichen Zeitrahmen.
+      (timeframe) => timeframe.date >= lastYear  // Keeps only timeframes from the last year.  // Behält nur Zeitrahmen des letzten Jahres.
     );
-
-    res.json(yearlyData);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.json(yearlyData);  // Returns the filtered yearly timeframe data.  // Gibt die gefilterten jährlichen Zeitrahmendaten zurück.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
-
-authRouter.post("/delete-project", auth, async (req, res) => {
-  try {
-    const { projectIndex } = req.body;
+authRouter.post("/delete-project", auth, async (req, res) => {  // Defines a POST route for deleting a project, with authentication middleware.  // Definiert eine POST-Route zum Löschen eines Projekts mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const { projectIndex } = req.body;  // Extracts the projectIndex from the request body.  // Extrahiert den projectIndex aus dem Anfrage-Body.
     
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    await User.findByIdAndUpdate(req.user, {
-      $pull: {
-        weeklyTimeframes: { projectIndex: projectIndex },
-        monthlyTimeframes: { projectIndex: projectIndex },
-        yearlyTimeframes: { projectIndex: projectIndex }
+    await User.findByIdAndUpdate(req.user, {  // Updates the user document by removing timeframe data.  // Aktualisiert das Benutzerdokument, indem Zeitrahmendaten entfernt werden.
+      $pull: {  // MongoDB operator to remove elements from arrays.  // MongoDB-Operator zum Entfernen von Elementen aus Arrays.
+        weeklyTimeframes: { projectIndex: projectIndex },  // Removes all weekly timeframes with this project index.  // Entfernt alle wöchentlichen Zeitrahmen mit diesem Projektindex.
+        monthlyTimeframes: { projectIndex: projectIndex },  // Removes all monthly timeframes with this project index.  // Entfernt alle monatlichen Zeitrahmen mit diesem Projektindex.
+        yearlyTimeframes: { projectIndex: projectIndex }  // Removes all yearly timeframes with this project index.  // Entfernt alle jährlichen Zeitrahmen mit diesem Projektindex.
       }
     });
-
-    if (projectIndex < user.projectName.length) {
-      user.projectName[projectIndex] = "add a project";
+    if (projectIndex < user.projectName.length) {  // Checks if the projectIndex is within the valid range.  // Überprüft, ob der Projektindex innerhalb des gültigen Bereichs liegt.
+      user.projectName[projectIndex] = "add a project";  // Resets the project name to the default value rather than removing it.  // Setzt den Projektnamen auf den Standardwert zurück, anstatt ihn zu entfernen.
     }
-
-    await user.save();
+    await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
     
-    res.json({
+    res.json({  // Sends a success response.  // Sendet eine Erfolgsantwort.
       success: true,
-      message: "Project and associated data deleted successfully"
+      message: "Project and associated data deleted successfully"  // Success message indicating the project was deleted.  // Erfolgsmeldung, die anzeigt, dass das Projekt gelöscht wurde.
     });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
+ 
 
-
-
-authRouter.get("/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+authRouter.get("/", auth, async (req, res) => {  // Defines a GET route for the root endpoint, with authentication middleware.  // Definiert eine GET-Route für den Root-Endpunkt mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    const iana = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const userLocalTimeZone = moment().tz(iana).format();
-    const currentTimeZoneVersion = `${moment.tz.version}-${moment.tz.dataVersion}`;
-    const convertUserLocalTimeZoneToUTC = moment().tz(iana).utc().format();
-
+    const iana = Intl.DateTimeFormat().resolvedOptions().timeZone;  // Gets the user's browser timezone.  // Ermittelt die Zeitzone des Browsers des Benutzers.
+    const userLocalTimeZone = moment().tz(iana).format();  // Formats the current time in the user's timezone.  // Formatiert die aktuelle Zeit in der Zeitzone des Benutzers.
+    const currentTimeZoneVersion = `${moment.tz.version}-${moment.tz.dataVersion}`;  // Creates a version string for the timezone data.  // Erstellt eine Versionszeichenfolge für die Zeitzonendaten.
+    const convertUserLocalTimeZoneToUTC = moment().tz(iana).utc().format();  // Converts the user's local time to UTC.  // Konvertiert die lokale Zeit des Benutzers in UTC.
     if (
       user.currentTimeZoneVersion !== currentTimeZoneVersion ||
       user.iana !== iana ||
       user.userLocalTimeZone !== userLocalTimeZone
-    ) {
-      user.iana = iana;
-      user.userLocalTimeZone = userLocalTimeZone;
-      user.currentTimeZoneVersion = currentTimeZoneVersion;
-      user.convertUserLocalTimeZoneToUTC = convertUserLocalTimeZoneToUTC;
-      await user.save();
-      console.log(`Updated time zone for user: ${user._id}`);
+    ) {  // Checks if timezone information needs to be updated.  // Überprüft, ob Zeitzoneninfos aktualisiert werden müssen.
+      user.iana = iana;  // Updates the user's IANA timezone.  // Aktualisiert die IANA-Zeitzone des Benutzers.
+      user.userLocalTimeZone = userLocalTimeZone;  // Updates the user's local timezone.  // Aktualisiert die lokale Zeitzone des Benutzers.
+      user.currentTimeZoneVersion = currentTimeZoneVersion;  // Updates the timezone version.  // Aktualisiert die Zeitzonenversion.
+      user.convertUserLocalTimeZoneToUTC = convertUserLocalTimeZoneToUTC;  // Updates the UTC conversion.  // Aktualisiert die UTC-Konvertierung.
+      await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
+      console.log(`Updated time zone for user: ${user._id}`);  // Logs the timezone update.  // Protokolliert die Zeitzonenaktualisierung.
     }
-
-    if (user.suscriptionStatusCancelled === true) {
-      user.getCurrentTimeAfterRefresh = new Date();
-      if (user.getCurrentTimeAfterRefresh > user.nextBillingTime) {
-        user.isPremium = false;
-        console.log(`S ubscription expir  ed for user: ${user._id}`);
+    if (user.suscriptionStatusCancelled === true) {  // Checks if the user's subscription is cancelled.  // Überprüft, ob das Abonnement des Benutzers gekündigt wurde.
+      user.getCurrentTimeAfterRefresh = new Date();  // Records the current time of this refresh.  // Zeichnet die aktuelle Zeit dieser Aktualisierung auf.
+      if (user.getCurrentTimeAfterRefresh > user.nextBillingTime) {  // Checks if the subscription has expired.  // Überprüft, ob das Abonnement abgelaufen ist.
+        user.isPremium = false;  // Removes premium status if subscription expired.  // Entfernt den Premium-Status, wenn das Abonnement abgelaufen ist.
+        console.log(`S ubscription expir  ed for user: ${user._id}`);  // Logs subscription expiration (note: contains extra spaces).  // Protokolliert das Abonnementende (Hinweis: enthält zusätzliche Leerzeichen).
       }
-      await user.save();
+      await user.save();  // Saves the updated user to the database.  // Speichert den aktualisierten Benutzer in der Datenbank.
     }
-    if (!cronJobForTimeZones[user._id]) {
-      cronJobForTimeZones[user._id] = agendaInstance.create(
-        " update-time-zones",
-        { message: `Updating time zones for user ${user._id}` }
+    if (!cronJobForTimeZones[user._id]) {  // Checks if a cron job exists for this user.  // Überprüft, ob für diesen Benutzer ein Cron-Job existiert.
+      cronJobForTimeZones[user._id] = agendaInstance.create(  // Creates a new cron job for timezone updates.  // Erstellt einen neuen Cron-Job für Zeitzonenaktualisierungen.
+        " update-time-zones",  // Job name for timezone updates.  // Aufgabenname für Zeitzonenaktualisierungen.
+        { message: `Updating time zones for user ${user._id}` }  // Job data with message.  // Aufgabendaten mit Nachricht.
       );
-      cronJobForTimeZones[user._id].repeatEvery("* * * * * *"); 
-      cronJobForTimeZones[user._id].save();
-      console.log(`Cron job scheduled for user ${user._id}`);
+      cronJobForTimeZones[user._id].repeatEvery("* *  **");  // Sets the job to repeat (note: pattern appears malformed).  // Legt fest, dass der Job wiederholt werden soll (Hinweis: Muster scheint fehlerhaft zu sein).
+      cronJobForTimeZones[user._id].save();  // Saves the cron job.  // Speichert den Cron-Job.
+      console.log(`Cron job scheduled for user ${user._id}`);  // Logs cron job scheduling.  // Protokolliert die Cron-Job-Planung.
     }
-
-    res.json({ user, token: req.token });
-    console.log("User data refreshed:", user);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: e.message });
+    res.json({ user, token: req.token });  // Returns the user data and token.  // Gibt die Benutzerdaten und das Token zurück.
+    console.log("User data refreshed:", user);  // Logs successful user data refresh.  // Protokolliert die erfolgreiche Aktualisierung der Benutzerdaten.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    console.error(e);  // Logs the error to the console.  // Protokolliert den Fehler in der Konsole.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
-
-authRouter.post("/api/logout", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+  
+authRouter.post("/api/logout", auth, async (req, res) => {  // Defines a POST route for user logout, with authentication middleware.  // Definiert eine POST-Route für die Benutzerabmeldung mit Authentifizierungs-Middleware.
+  try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+    const user = await User.findById(req.user);  // Finds the user in the database by ID.  // Sucht den Benutzer in der Datenbank anhand der ID.
+    if (!user) {  // Checks if the user exists.  // Überprüft, ob der Benutzer existiert.
+      return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
     }
-
-    if (cronJobForTimeZones[user._id]) {
-      console.log(`Clearing cron job for user ${user._id}`);
-
-      cronJobForTimeZones[user._id].remove();
-      delete cronJobForTimeZones[user._id];
-      console.log(`Cron job cleared for user ${user._id}`);
+    if (cronJobForTimeZones[user._id]) {  // Checks if a cron job exists for this user.  // Überprüft, ob für diesen Benutzer ein Cron-Job existiert.
+      console.log(`Clearing cron job for user ${user._id}`);  // Logs the beginning of cron job cleanup.  // Protokolliert den Beginn der Cron-Job-Bereinigung.
+      cronJobForTimeZones[user._id].remove();  // Removes the cron job from the scheduler.  // Entfernt den Cron-Job aus dem Scheduler.
+      delete cronJobForTimeZones[user._id];  // Deletes the job reference from the tracking object.  // Löscht die Job-Referenz aus dem Tracking-Objekt.
+      console.log(`Cron job cleared for user ${user._id}`);  // Logs completion of cron job cleanup.  // Protokolliert den Abschluss der Cron-Job-Bereinigung.
     }
-
-    res.json({ msg: "Logged out successfully" });
-    console.log("User logged out:", user._id);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: e.message });
+    res.json({ msg: "Logged out successfully" });  // Returns a success message for logout.  // Gibt eine Erfolgsmeldung für die Abmeldung zurück.
+    console.log("User logged out:", user._id);  // Logs the user ID that was logged out.  // Protokolliert die Benutzer-ID, die abgemeldet wurde.
+  } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+    console.error(e);  // Logs the error to the console.  // Protokolliert den Fehler in der Konsole.
+    res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
   }
 });
 
 authRouter.delete(
-  "/api/delete-premium-or-not-premium-user",
-  auth,
-  async (req, res) => {
-    try {
-      const user = await User.findByIdAndDelete(req.user);
-
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
+  "/api/delete-premium-or-not-premium-user",  // Defines a DELETE route for account deletion, for both premium and non-premium users.  // Definiert eine DELETE-Route für die Kontolöschung, sowohl für Premium- als auch für Nicht-Premium-Benutzer.
+  auth,  // Applies authentication middleware to ensure only authenticated users can delete accounts.  // Wendet Authentifizierungs-Middleware an, um sicherzustellen, dass nur authentifizierte Benutzer Konten löschen können.
+  async (req, res) => {  // Asynchronous route handler function.  // Asynchrone Route-Handler-Funktion.
+    try {  // Begins a try-catch block for error handling.  // Beginnt einen Try-Catch-Block zur Fehlerbehandlung.
+      const user = await User.findByIdAndDelete(req.user);  // Finds the user by ID and deletes them from the database.  // Findet den Benutzer anhand der ID und löscht ihn aus der Datenbank.
+      if (!user) {  // Checks if the user was found and deleted.  // Überprüft, ob der Benutzer gefunden und gelöscht wurde.
+        return res.status(404).json({ error: "User not found" });  // Returns a 404 error if user is not found.  // Gibt einen 404-Fehler zurück, wenn der Benutzer nicht gefunden wird.
       }
-
-      if (cronJobForTimeZones[user._id]) {
-        console.log(`Clearing cron job for user ${user._id}`);
-
-        cronJobForTimeZones[user._id].remove();
-        delete cronJobForTimeZones[user._id];
-        console.log(`Cron job cleared for user ${user._id}`);
+      if (cronJobForTimeZones[user._id]) {  // Checks if a cron job exists for this user.  // Überprüft, ob für diesen Benutzer ein Cron-Job existiert.
+        console.log(`Clearing cron job for user ${user._id}`);  // Logs the beginning of cron job cleanup.  // Protokolliert den Beginn der Cron-Job-Bereinigung.
+        cronJobForTimeZones[user._id].remove();  // Removes the cron job from the scheduler.  // Entfernt den Cron-Job aus dem Scheduler.
+        delete cronJobForTimeZones[user._id];  // Deletes the job reference from the tracking object.  // Löscht die Job-Referenz aus dem Tracking-Objekt.
+        console.log(`Cron job cleared for user ${user._id}`);  // Logs completion of cron job cleanup.  // Protokolliert den Abschluss der Cron-Job-Bereinigung.
       }
-
-      res.json({ msg: "Account deleted successfully" });
-    } catch (e) {
-      res.status(500).json({ error: e.message });
+      res.json({ msg: "Account deleted successfully" });  // Returns a success message for account deletion.  // Gibt eine Erfolgsmeldung für die Kontolöschung zurück.
+    } catch (e) {  // Catches any errors that occur.  // Fängt alle auftretenden Fehler ab.
+      res.status(500).json({ error: e.message });  // Returns a 500 error with the error message.  // Gibt einen 500-Fehler mit der Fehlermeldung zurück.
     }
   }
 );
-
-module.exports = authRouter;
-
-authRouter.post("/update-settings", auth, async (req, res) => {
-  try {
-    const {
-      pomodoroTimer,
-      shortBreakTimer,
-      longBreakTimer,
-      longBreakInterval,
-      selectedSound,
-      browserNotificationsEnabled,
-    } = req.body;
-
-    const allowedSounds = [
-      "assets/sounds/Flashpoint.wav",
-      "assets/sounds/Plink.wav",
-      "assets/sounds/Blink.wav",
-    ];
-
-    if (!allowedSounds.includes(selectedSound)) {
-      return res.status(400).json({ error: "Invalid sound selection" });
-    }
-
-    if (
-      pomodoroTimer === undefined ||
-      shortBreakTimer === undefined ||
-      longBreakTimer === undefined ||
-      longBreakInterval === undefined ||
-      selectedSound === undefined ||
-      browserNotificationsEnabled === undefined
-    ) {
-      return res.status(400).json({
-        error:
-          "pomodoroTimer, shortBreakTimer, longBreakTimer and longBreakInterval are required",
-      });
-    }
-
-    const user = await User.findById(req.user);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.pomodoroTimer = pomodoroTimer;
-    user.shortBreakTimer = shortBreakTimer;
-    user.longBreakTimer = longBreakTimer;
-    user.longBreakInterval = longBreakInterval;
-    user.selectedSound = selectedSound;
-    user.browserNotificationsEnabled = browserNotificationsEnabled;
-
-    await user.save();
-
-    res.json({
-      message: "Settings updated successfully",
-      pomodoroTimer: user.pomodoroTimer,
-      shortBreakTimer: user.shortBreakTimer,
-      longBreakTimer: user.longBreakTimer,
-      longBreakInterval: user.longBreakInterval,
-      selectedSound: user.selectedSound,
-      browserNotificationsEnabled: user.browserNotificationsEnabled,
-    });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
+  
+module.exports = authRouter;  // Exports the authRouter object to make it available to other files.  // Exportiert das authRouter-Objekt, um es für andere Dateien verfügbar zu machen.
