@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import the Riverpod package for state management.  // Importiert das Riverpod-Paket für das Zustandsmanagement.
-import '../../infrastructure/data_sources/hive_services.dart';  // Import Hive services for local data storage.  // Importiert Hive-Dienste für die lokale Datenspeicherung.
+import '../../infrastructure/data_sources/hive_services.dart';  // Import Hive services for local data storage.  // Importiert Hive-Dienste für die lokale Datenspeicherung. 
 import '../repository/auth_repository.dart';  // Import the authentication repository.  // Importiert das Authentifizierungs-Repository.
 
 
