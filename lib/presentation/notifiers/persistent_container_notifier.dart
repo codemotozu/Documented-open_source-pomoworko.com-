@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für das State-Management.
+import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für das State-Management. 
 import '../repository/auth_repository.dart';  // Import the authentication repository.  // Importiert das Authentifizierungs-Repository.
 import '../repository/local_storage_repository.dart';  // Import the local storage repository.  // Importiert das lokale Speicher-Repository.
 import 'providers.dart';  // Import other providers.  // Importiert andere Provider.
