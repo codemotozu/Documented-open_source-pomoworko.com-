@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod package for state management.  // Importiert das Riverpod-Paket für die Zustandsverwaltung.
+import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod package for state management.  // Importiert das Riverpod-Paket für die Zustandsverwaltung. 
 // This provider changes the color of the project container.  // Dieser Provider ändert die Farbe des Projektcontainers.
 class SelectedProjecContainerColortNotifier extends StateNotifier<int> {  // Defines a class that extends StateNotifier with integer state to manage selected project container color.  // Definiert eine Klasse, die StateNotifier mit Integer-Zustand erweitert, um die ausgewählte Projektcontainerfarbe zu verwalten.
   SelectedProjecContainerColortNotifier() : super(0);  // Constructor initializes the state to 0 (default color index).  // Konstruktor initialisiert den Zustand auf 0 (Standard-Farbindex).
