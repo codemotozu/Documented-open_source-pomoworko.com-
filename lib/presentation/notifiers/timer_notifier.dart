@@ -1,4 +1,4 @@
-import 'dart:async';  // Imports async functionality for Futures and Streams.  // Importiert asynchrone Funktionalität für Futures und Streams.
+import 'dart:async';  // Imports async functionality for Futures and Streams.  // Importiert asynchrone Funktionalität für Futures und Streams. 
 import 'dart:html' as html;  // Imports HTML functionality for web interactions.  // Importiert HTML-Funktionalität für Web-Interaktionen.
 import 'dart:js' as js;  // Imports JavaScript interoperability.  // Importiert JavaScript-Interoperabilität.
 import 'package:flutter/material.dart';  // Imports Flutter's material design package.  // Importiert Flutters Material-Design-Paket.
