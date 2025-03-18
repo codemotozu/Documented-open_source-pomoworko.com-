@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod package for state management.  // Importiert das Riverpod-Paket für die Zustandsverwaltung.
+import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod package for state management.  // Importiert das Riverpod-Paket für die Zustandsverwaltung. 
 import '../../common/widgets/domain/entities/sound_entity.dart';  // Imports the Sound entity class from the project structure.  // Importiert die Sound-Entitätsklasse aus der Projektstruktur.
 
 class SoundNotifier extends StateNotifier<Sound> {  // Defines a class that extends StateNotifier with Sound type to manage the sound state.  // Definiert eine Klasse, die StateNotifier mit dem Typ Sound erweitert, um den Sound-Zustand zu verwalten.
