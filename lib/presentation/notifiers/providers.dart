@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';  // Imports Flutter material design package for UI components.  // Importiert das Flutter Material-Design-Paket für UI-Komponenten.
+import 'package:flutter/material.dart';  // Imports Flutter material design package for UI components.  // Importiert das Flutter Material-Design-Paket für UI-Komponenten. 
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports Riverpod for state management.  // Importiert Riverpod für State-Management.
 import 'package:just_audio/just_audio.dart';  // Imports Just Audio package for audio playback.  // Importiert das Just Audio-Paket für die Audiowiedergabe.
 import '../../common/widgets/domain/entities/sound_entity.dart';  // Imports the Sound entity class.  // Importiert die Sound-Entitätsklasse.
