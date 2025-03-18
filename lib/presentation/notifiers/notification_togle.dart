@@ -1,6 +1,6 @@
 import 'dart:html' as html;  // Import Dart's HTML library for web browser functionality.  // Importiert Darts HTML-Bibliothek für Webbrowser-Funktionalität.
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung.
-import '../../infrastructure/data_sources/hive_services.dart';  // Import local Hive database service.  // Importiert den lokalen Hive-Datenbankdienst.
+import '../../infrastructure/data_sources/hive_services.dart';  // Import local Hive database service.  // Importiert den lokalen Hive-Datenbankdienst. 
 
 class NotificationToggle extends StateNotifier<bool> {  // Define a class that manages notification state.  // Definiert eine Klasse, die den Benachrichtigungszustand verwaltet.
   NotificationToggle() : super(false) {  // Constructor initializes state to false.  // Konstruktor initialisiert den Zustand auf false.
