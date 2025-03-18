@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung.
+import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung. 
 import 'package:http/http.dart';  // Import HTTP package for network requests.  // Importiert das HTTP-Paket für Netzwerkanfragen.
 import 'package:pomoworko/presentation/notifiers/providers.dart';  // Import app-specific providers.  // Importiert anwendungsspezifische Provider.
 import 'dart:async';  // Import async utilities like Timer.  // Importiert asynchrone Hilfsprogramme wie Timer.
