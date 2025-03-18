@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import the Riverpod package for state management.  // Importiert das Riverpod-Paket für das Zustandsmanagement.
+import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import the Riverpod package for state management.  // Importiert das Riverpod-Paket für das Zustandsmanagement. 
 import 'package:pomoworko/presentation/notifiers/providers.dart';  // Import local providers.  // Importiert lokale Provider.
 
 import '../repository/auth_repository.dart';  // Import authentication repository.  // Importiert das Authentifizierungs-Repository.
