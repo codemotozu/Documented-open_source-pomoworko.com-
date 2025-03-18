@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung.
-import '../repository/auth_repository.dart';  // Imports the authentication repository.  // Importiert das Authentifizierungs-Repository.
+import '../repository/auth_repository.dart';  // Imports the authentication repository.  // Importiert das Authentifizierungs-Repository. 
 import 'providers.dart';  // Imports other providers.  // Importiert andere Provider.
 import 'timer_notifier.dart';  // Imports the timer notifier class.  // Importiert die Timer-Notifier-Klasse.
 
