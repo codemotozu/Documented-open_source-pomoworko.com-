@@ -2,7 +2,7 @@
 
 ## Premium Dialog Component
 
-![Premium Dialog Screenshot](![image](https://github.com/user-attachments/assets/d8632ec9-9001-4dab-852d-19c4c854fb0a)
+![image](https://github.com/user-attachments/assets/7bc88ab9-0897-47bd-a399-4999d078fee5)
 
 
 ### Usage
