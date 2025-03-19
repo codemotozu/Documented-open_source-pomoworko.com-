@@ -1,4 +1,4 @@
-/// PremiumReadySoon
+/// PremiumReadySoon 
 /// 
 /// A dialog widget that informs users about upcoming premium features.
 /// Used throughout the application when users attempt to access premium-only features.
