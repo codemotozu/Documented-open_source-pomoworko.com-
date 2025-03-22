@@ -1,7 +1,7 @@
 /// PremiumReadySoon 
 /// 
-/// A dialog widget that informs users about upcoming premium features. 
-/// Used throughout the application when users attempt to access premium-only features.
+/// A dialog widget that informs users about upcoming premium features. // Ein Dialog-Widget, das Benutzer über kommende Premium-Funktionen informiert.
+/// Used throughout the application when users attempt to access premium-only features. // Wird in der gesamten Anwendung verwendet, wenn Benutzer versuchen, auf Premium-Funktionen zuzugreifen.
 /// 
 /// Usage:
 /// ```dart
