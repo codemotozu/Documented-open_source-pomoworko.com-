@@ -1,4 +1,3 @@
-```dart
 /// CheckDoubleIcon
 /// 
 /// A widget that displays a double check icon for the Pomodoro timer application. // Ein Widget, das ein Doppelhaken-Symbol für die Pomodoro-Timer-Anwendung anzeigt.
@@ -48,4 +47,3 @@ class _CheckDoubleIconState extends ConsumerState<CheckDoubleIcon> { // Defines 
   
   }
 }
-```
