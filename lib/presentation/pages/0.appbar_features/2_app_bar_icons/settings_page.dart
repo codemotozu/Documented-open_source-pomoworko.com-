@@ -5,7 +5,7 @@
 /// 
 /// Usage:
 /// ```dart
-/// Navigator.of(context).push(
+/// Navigator.of(context).push( 
 ///   MaterialPageRoute(builder: (context) => const SettingsPage()),
 /// );
 /// ```
