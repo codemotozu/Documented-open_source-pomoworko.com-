@@ -7,7 +7,7 @@
 /// ```dart
 /// Scaffold(
 ///   body: const AnimationAndTimer(),
-/// )
+/// ) 
 /// ```
 /// 
 /// EN: Manages timer state, animations, and UI for a Pomodoro timer application with different timer modes.
