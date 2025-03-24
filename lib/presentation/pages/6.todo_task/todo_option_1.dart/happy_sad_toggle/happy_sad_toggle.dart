@@ -5,7 +5,7 @@
 /// 
 /// Usage:
 /// ```dart
-/// SmileFaceCheckbox(
+/// SmileFaceCheckbox( 
 ///   isActive: _isHappy,
 ///   onPress: () {
 ///     setState(() {
