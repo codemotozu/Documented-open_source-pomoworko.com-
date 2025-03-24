@@ -1,4 +1,4 @@
-/// EditableTaskTitle
+/// EditableTaskTitle 
 /// 
 /// A widget that provides an editable text field for task titles in the application. // Ein Widget, das ein bearbeitbares Textfeld für Aufgabentitel in der Anwendung bereitstellt.
 /// Synchronizes task title changes across local storage and server while providing real-time updates. // Synchronisiert Änderungen an Aufgabentiteln über lokalen Speicher und Server und bietet Echtzeit-Updates.
