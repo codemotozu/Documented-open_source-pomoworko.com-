@@ -5,7 +5,7 @@
 /// 
 /// Usage:
 /// ```dart
-/// CartesianPremiumChart(
+/// CartesianPremiumChart( 
 ///   title: 'Project Analytics',
 /// )
 /// ```
