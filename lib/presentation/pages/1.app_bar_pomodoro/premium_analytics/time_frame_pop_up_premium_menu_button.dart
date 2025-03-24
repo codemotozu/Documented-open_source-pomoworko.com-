@@ -3,7 +3,7 @@
 /// A popup menu button widget that displays time frame options with premium feature indicators. // Ein Popup-Menü-Button-Widget, das Zeitrahmenoptionen mit Premium-Funktionsanzeigen anzeigt.
 /// Used to allow users to select different time frames, with some options marked as premium-only. // Wird verwendet, um Benutzern die Auswahl verschiedener Zeitrahmen zu ermöglichen, wobei einige Optionen als nur für Premium-Nutzer gekennzeichnet sind.
 /// 
-/// Usage:
+/// Usage: 
 /// ```dart
 /// TimeFramePopupPremiumMenuButton(
 ///   timeFrames: ['Daily', 'Weekly', 'Monthly', 'Yearly'],
