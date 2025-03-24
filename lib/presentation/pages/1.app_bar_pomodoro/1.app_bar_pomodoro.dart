@@ -1,6 +1,6 @@
 /// PomodoroLogo
 /// 
-/// A widget that displays the application logo in the app bar. // Ein Widget, das das Anwendungslogo in der App-Leiste anzeigt.
+/// A widget that displays the application logo in the app bar. // Ein Widget, das das Anwendungslogo in der App-Leiste anzeigt. 
 /// Used as the main header component for the application, featuring the "pomoworko.com" branding. // Wird als Hauptkopfkomponente für die Anwendung verwendet und zeigt das "pomoworko.com"-Branding.
 /// 
 /// Usage:
