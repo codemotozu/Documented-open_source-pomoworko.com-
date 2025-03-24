@@ -5,7 +5,7 @@
 /// 
 /// Usage:
 /// ```dart
-/// AuthCheckScreen()
+/// AuthCheckScreen() 
 /// ```
 /// 
 /// EN: Serves as an authentication gate that directs users to different views based on their auth status.
