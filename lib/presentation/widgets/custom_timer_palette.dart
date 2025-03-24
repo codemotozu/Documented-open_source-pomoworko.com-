@@ -1,4 +1,4 @@
-/// CustomTimePainter
+/// CustomTimePainter 
 /// 
 /// A custom painter class that creates an animated filling effect for visualizing time progress. // Eine benutzerdefinierte Painter-Klasse, die einen animierten Fülleffekt zur Visualisierung des Zeitfortschritts erstellt.
 /// Used to display visual countdowns or timers with a filling animation from bottom to top. // Wird verwendet, um visuelle Countdowns oder Timer mit einer Füllanimation von unten nach oben anzuzeigen.
