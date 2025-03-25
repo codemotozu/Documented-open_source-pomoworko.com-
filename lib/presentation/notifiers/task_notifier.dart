@@ -1,3 +1,31 @@
+/// TaskListManager
+/// 
+/// A comprehensive task management system that handles creation, storage, and UI state of todo items. // Ein umfassendes Aufgabenverwaltungssystem, das Erstellung, Speicherung und UI-Zustand von Todo-Elementen verwaltet.
+/// Synchronizes tasks between UI and persistent storage with automatic layout calculations. // Synchronisiert Aufgaben zwischen UI und persistentem Speicher mit automatischen Layout-Berechnungen.
+/// 
+/// Usage:
+/// ```dart
+/// // Add a new task
+/// ref.read(taskListProvider.notifier).addTask(Todo(
+///   id: 'unique-id',
+///   title: 'Complete project',
+///   description: 'Finish all remaining tasks by Friday'
+/// ));
+/// 
+/// // Remove a task
+/// ref.read(taskListProvider.notifier).removeTask(existingTask);
+/// 
+/// // Access the current task list
+/// final tasks = ref.watch(taskListProvider);
+/// 
+/// // Get the calculated page height for layout
+/// final pageHeight = ref.watch(todoPageHeightProvider);
+/// ```
+/// 
+/// EN: Provides a complete task management solution with persistence, state management, and dynamic UI layout calculations.
+/// DE: Bietet eine vollständige Aufgabenverwaltungslösung mit Persistenz, Zustandsverwaltung und dynamischen UI-Layout-Berechnungen.
+
+
 import 'dart:math';  // Imports the math library for calculations.  // Importiert die Math-Bibliothek für Berechnungen.
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung. 
 import '../../common/widgets/domain/entities/todo_entity.dart';  // Imports the Todo entity class.  // Importiert die Todo-Entitätsklasse.
