@@ -1,4 +1,4 @@
-/// TaskCard
+/// TaskCard 
 /// 
 /// A responsive card widget that displays timer information and project selection for a Pomodoro application. // Ein responsives Karten-Widget, das Timer-Informationen und Projektauswahl für eine Pomodoro-Anwendung anzeigt.
 /// Used as the main interface element to show the current timer, selected project, and project selection options with premium feature handling. // Wird als Hauptschnittstellenelement verwendet, um den aktuellen Timer, das ausgewählte Projekt und Projektauswahloptionen mit Premium-Funktionsverwaltung anzuzeigen.
