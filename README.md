@@ -2,10 +2,13 @@
 
 <div align="center">
   <a href="https://pomoworko.com/" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/codemotozu/Documented-open_source-pomoworko.com-/blob/main/assets/images/logo_primary.png" 
-         width="200" 
-         alt="Pomoworko Logo" 
-         style="border: none; background: transparent;">
+    <div style="position: relative; display: inline-block;">
+      <img src="https://github.com/codemotozu/Documented-open_source-pomoworko.com-/blob/main/assets/images/logo_primary.png" 
+           width="200" 
+           alt="Pomoworko Logo">
+      <!-- This overlay hides the red square -->
+      <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; background-color: #1a1a1a;"></div>
+    </div>
   </a>
 </div>
 
