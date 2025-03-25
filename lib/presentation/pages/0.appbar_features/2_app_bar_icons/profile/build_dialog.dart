@@ -1,3 +1,19 @@
+/// DialogContentItem
+/// 
+/// A reusable widget that renders standardized dialog content with a title and description. // Ein wiederverwendbares Widget, das standardisierte Dialog-Inhalte mit Titel und Beschreibung rendert.
+/// Used throughout the application to maintain consistent styling in dialog boxes. // Wird in der gesamten Anwendung verwendet, um ein einheitliches Styling in Dialogfenstern zu gewährleisten.
+/// 
+/// Usage:
+/// ```dart
+/// BuildDialogItem(
+///   "Feature Unavailable",
+///   "This feature will be available in a future update."
+/// )
+/// ```
+/// 
+/// EN: Creates uniformly styled dialog content with a bold title and gray description text.
+/// DE: Erstellt einheitlich gestaltete Dialog-Inhalte mit fettem Titel und grauem Beschreibungstext.
+
 import 'package:flutter/material.dart';  // Imports the Flutter Material Design package.  // Importiert das Flutter Material Design Paket.
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod state management package.  // Importiert das Riverpod State-Management-Paket.
 
