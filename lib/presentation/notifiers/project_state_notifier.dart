@@ -1,3 +1,26 @@
+/// ProjectStateManager
+/// 
+/// A state management system for tracking and modifying project names in a productivity application. // Ein Zustandsverwaltungssystem zur Verfolgung und Änderung von Projektnamen in einer Produktivitätsanwendung.
+/// Synchronizes project data between UI, local storage, and server for cross-device persistence. // Synchronisiert Projektdaten zwischen UI, lokalem Speicher und Server für geräteübergreifende Persistenz.
+/// 
+/// Usage:
+/// ```dart
+/// // Access the current list of project names
+/// final projectNames = ref.watch(projectStateNotifierProvider);
+/// 
+/// // Add or update a project
+/// ref.read(projectStateNotifierProvider.notifier).addProject("My New Project", 2, ref);
+/// 
+/// // Delete a project
+/// ref.read(projectStateNotifierProvider.notifier).deleteProject(1);
+/// 
+/// // Get a specific project name
+/// final projectName = ref.read(projectStateNotifierProvider.notifier).getProject(0);
+/// ```
+/// 
+/// EN: Manages project data with multi-location persistence and provides utilities for creating, reading, updating, and deleting projects.
+/// DE: Verwaltet Projektdaten mit Mehrfach-Persistenz und bietet Dienstprogramme zum Erstellen, Lesen, Aktualisieren und Löschen von Projekten.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import the Riverpod package for state management.  // Importiert das Riverpod-Paket für das Zustandsmanagement. 
 import 'package:pomoworko/presentation/notifiers/providers.dart';  // Import local providers.  // Importiert lokale Provider.
 
