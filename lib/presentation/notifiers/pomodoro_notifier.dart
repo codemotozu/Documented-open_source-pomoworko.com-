@@ -1,3 +1,27 @@
+/// PomodoroStateManager
+/// 
+/// A state management system for tracking Pomodoro timer sessions and user progress. // Ein Zustandsverwaltungssystem zur Verfolgung von Pomodoro-Timer-Sitzungen und Benutzerfortschritt.
+/// Synchronizes Pomodoro completion states across local storage and server backend for persistence across sessions and devices. // Synchronisiert Pomodoro-Abschlusszustände zwischen lokalem Speicher und Server-Backend für die Persistenz über Sitzungen und Geräte hinweg.
+/// 
+/// Usage:
+/// ```dart
+/// // Access the current Pomodoro states
+/// final pomodoroState = ref.watch(pomodoroNotifierProvider);
+/// 
+/// // Start a new Pomodoro session
+/// ref.read(pomodoroNotifierProvider.notifier).startNewPomodoro();
+/// 
+/// // Mark the current Pomodoro as completed
+/// ref.read(pomodoroNotifierProvider.notifier).finishCurrentPomodoro();
+/// 
+/// // Reset all Pomodoro progress
+/// ref.read(pomodoroNotifierProvider.notifier).resetPomodoros();
+/// ```
+/// 
+/// EN: Manages the state of Pomodoro timer sessions with multi-location persistence for tracking productivity across user sessions.
+/// DE: Verwaltet den Zustand von Pomodoro-Timer-Sitzungen mit Mehrfach-Persistenz zur Verfolgung der Produktivität über Benutzersitzungen hinweg.
+
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import the Riverpod package for state management.  // Importiert das Riverpod-Paket für das Zustandsmanagement.
 import '../../infrastructure/data_sources/hive_services.dart';  // Import Hive services for local data storage.  // Importiert Hive-Dienste für die lokale Datenspeicherung.  
 import '../repository/auth_repository.dart';  // Import the authentication repository.  // Importiert das Authentifizierungs-Repository.
