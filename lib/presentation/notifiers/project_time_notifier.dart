@@ -1,3 +1,28 @@
+/// ProjectTimeTracker
+/// 
+/// A comprehensive time tracking system for monitoring time spent on different projects. // Ein umfassendes Zeiterfassungssystem zur Überwachung der für verschiedene Projekte aufgewendeten Zeit.
+/// Manages real-time timing, persistent storage, and analytics for project productivity data. // Verwaltet Echtzeit-Timing, persistente Speicherung und Analysen für Projekt-Produktivitätsdaten.
+/// 
+/// Usage:
+/// ```dart
+/// // Start timing for a project
+/// ref.read(projectTimesProvider.notifier).startTimer(projectIndex);
+/// 
+/// // Pause and save the elapsed time
+/// ref.read(projectTimesProvider.notifier).pauseTimer(projectIndex);
+/// 
+/// // Get total time spent on a project
+/// final totalDuration = ref.read(projectTimesProvider.notifier).getTotalProjectTime(projectIndex);
+/// 
+/// // Get data for monthly visualization
+/// final monthlyData = ref.read(projectTimesProvider.notifier).getMonthlyData(projectIndex, DateTime.now());
+/// ```
+/// 
+/// EN: Provides a complete project time tracking solution with real-time timing, multi-location persistence, and data aggregation for analytics and visualization.
+/// DE: Bietet eine vollständige Projektzeiterfassungslösung mit Echtzeit-Timing, Mehrfach-Persistenz und Datenaggregation für Analysen und Visualisierung.
+
+
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung. 
 import 'package:http/http.dart';  // Import HTTP package for network requests.  // Importiert das HTTP-Paket für Netzwerkanfragen.
 import 'package:pomoworko/presentation/notifiers/providers.dart';  // Import app-specific providers.  // Importiert anwendungsspezifische Provider.
