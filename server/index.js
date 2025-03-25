@@ -1,23 +1,24 @@
-/// ExpressServer
+/// ExpressServerSetup
 /// 
-/// A Node.js Express server that handles authentication, database connections, and serves a Flutter web application.
-/// Includes production environment configuration, HTTPS enforcement, and MongoDB integration.
+/// A Node.js Express server that handles authentication, payments, and serves a Flutter web application.
+/// Ein Node.js Express-Server, der Authentifizierung, Zahlungen verarbeitet und eine Flutter-Web-Anwendung bereitstellt.
+/// 
+/// Features / Funktionen:
+/// - MongoDB connection for data persistence / MongoDB-Verbindung für Datenpersistenz
+/// - Authentication routes / Authentifizierungsrouten
+/// - PayPal integration / PayPal-Integration
+/// - HTTPS enforcement in production / HTTPS-Erzwingung im Produktionsmodus
+/// - Static file serving for Flutter web app / Bereitstellung statischer Dateien für Flutter-Web-App
+/// - Agenda job scheduler / Agenda-Job-Scheduler
 /// 
 /// Usage:
 /// ```javascript
-/// // Install dependencies
-/// npm install express mongoose dotenv cors
-/// 
-/// // Configure environment variables in .env file
-/// // MONGO_DB_URL=your_mongodb_connection_string
-/// // PORT=your_preferred_port (defaults to 3001)
-/// 
-/// // Run the server
-/// node server.js
+/// // Start the server
+/// node index.js
 /// ```
 /// 
-/// EN: Sets up a production-ready Express server with MongoDB connection, authentication routes, and serves a Flutter web application.
-/// DE: Richtet einen produktionsbereiten Express-Server mit MongoDB-Verbindung, Authentifizierungsrouten ein und stellt eine Flutter-Web-Anwendung bereit.
+/// EN: Sets up a complete Express server with authentication, database connection, and payment processing.
+/// DE: Richtet einen vollständigen Express-Server mit Authentifizierung, Datenbankverbindung und Zahlungsabwicklung ein.
 
 const express = require('express');  // Import Express framework.  // Importiert das Express-Framework.
 const mongoose = require('mongoose');  // Import Mongoose for MongoDB interactions.  // Importiert Mongoose für die Interaktion mit MongoDB.
