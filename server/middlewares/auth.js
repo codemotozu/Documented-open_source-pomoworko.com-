@@ -1,3 +1,23 @@
+/// AuthMiddleware
+/// 
+/// A middleware function that authenticates API requests using JSON Web Tokens (JWT). // Eine Middleware-Funktion, die API-Anfragen mithilfe von JSON Web Tokens (JWT) authentifiziert.
+/// Used to protect restricted routes and verify user identity throughout the application. // Wird verwendet, um eingeschränkte Routen zu schützen und die Benutzeridentität in der gesamten Anwendung zu überprüfen.
+/// 
+/// Usage:
+/// ```javascript
+/// const auth = require('./middleware/auth');
+/// 
+/// // Apply to specific routes
+/// router.get('/protected-route', auth, (req, res) => {
+///   // Access authenticated user ID
+///   const userId = req.user;
+///   // Handle the request...
+/// });
+/// ```
+/// 
+/// EN: Validates JWT tokens from request headers and provides user identification for protected routes.
+/// DE: Validiert JWT-Tokens aus Request-Headern und stellt Benutzeridentifikation für geschützte Routen bereit.
+
 const jwt = require("jsonwebtoken");  // Import the jsonwebtoken library for JWT operations.  // Importiert die jsonwebtoken-Bibliothek für JWT-Operationen.
 const auth = async (req, res, next) => {  // Define an async middleware function for authentication.  // Definiert eine asynchrone Middleware-Funktion für die Authentifizierung.
   try {  // Start a try block to handle potential errors.  // Startet einen try-Block, um potenzielle Fehler zu behandeln.
