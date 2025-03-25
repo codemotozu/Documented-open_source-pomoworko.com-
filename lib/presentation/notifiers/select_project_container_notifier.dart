@@ -1,3 +1,26 @@
+/// ProjectContainerColorSelector
+/// 
+/// A state management component that tracks and updates the selected color for project containers. // Eine Zustandsverwaltungskomponente, die die ausgewählte Farbe für Projektcontainer verfolgt und aktualisiert.
+/// Used throughout the application to maintain consistent color selection for project visualization. // Wird in der gesamten Anwendung verwendet, um eine konsistente Farbauswahl für die Projektvisualisierung zu gewährleisten.
+/// 
+/// Usage:
+/// ```dart
+/// // Read the currently selected color index
+/// final colorIndex = ref.watch(selectedProyectContainerProvider);
+/// 
+/// // Update the selected color
+/// ref.read(selectedProyectContainerProvider.notifier).updateSelectedContainerColorProject(2);
+/// 
+/// // Use the color index to determine container appearance
+/// Container(
+///   color: projectColors[colorIndex],
+///   child: Text('Project Content'),
+/// )
+/// ```
+/// 
+/// EN: Manages the selection state for project container colors using Riverpod state management.
+/// DE: Verwaltet den Auswahlzustand für Projektcontainer-Farben mithilfe des Riverpod-Zustandsmanagements.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod package for state management.  // Importiert das Riverpod-Paket für die Zustandsverwaltung. 
 // This provider changes the color of the project container.  // Dieser Provider ändert die Farbe des Projektcontainers.
 class SelectedProjecContainerColortNotifier extends StateNotifier<int> {  // Defines a class that extends StateNotifier with integer state to manage selected project container color.  // Definiert eine Klasse, die StateNotifier mit Integer-Zustand erweitert, um die ausgewählte Projektcontainerfarbe zu verwalten.
