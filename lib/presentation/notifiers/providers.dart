@@ -1,3 +1,27 @@
+/// PomodoroStateManagement
+/// 
+/// A comprehensive collection of state providers that manage all aspects of the Pomodoro productivity application. // Eine umfassende Sammlung von State-Providern, die alle Aspekte der Pomodoro-Produktivitätsanwendung verwalten.
+/// Coordinates timers, sounds, notifications, themes, UI states, and user preferences throughout the application. // Koordiniert Timer, Sounds, Benachrichtigungen, Themes, UI-Zustände und Benutzereinstellungen in der gesamten Anwendung.
+/// 
+/// Usage / Verwendung:
+/// ```dart
+/// // Access timer values
+/// final pomodoroLength = ref.watch(pomodoroTimerProvider);
+/// final shortBreakLength = ref.watch(shortBreakProvider);
+/// 
+/// // Check if timer is running
+/// final isRunning = ref.watch(isTimerRunningProvider);
+/// 
+/// // Change notification sound
+/// ref.read(selectedSoundProvider.notifier).updateSound(newSound);
+/// 
+/// // Toggle dark/light theme
+/// ref.read(themeModeProvider.notifier).toggle();
+/// ```
+/// 
+/// EN: Centralizes the application's state management using Riverpod providers for a consistent, reactive, and synchronized user experience across features.
+/// DE: Zentralisiert das Zustandsmanagement der Anwendung mithilfe von Riverpod-Providern für eine konsistente, reaktive und synchronisierte Benutzererfahrung über alle Funktionen hinweg.
+
 import 'package:flutter/material.dart';  // Imports Flutter material design package for UI components.  // Importiert das Flutter Material-Design-Paket für UI-Komponenten. 
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports Riverpod for state management.  // Importiert Riverpod für State-Management.
 import 'package:just_audio/just_audio.dart';  // Imports Just Audio package for audio playback.  // Importiert das Just Audio-Paket für die Audiowiedergabe.
