@@ -1,3 +1,24 @@
+/// ExpressServer
+/// 
+/// A Node.js Express server that handles authentication, database connections, and serves a Flutter web application.
+/// Includes production environment configuration, HTTPS enforcement, and MongoDB integration.
+/// 
+/// Usage:
+/// ```javascript
+/// // Install dependencies
+/// npm install express mongoose dotenv cors
+/// 
+/// // Configure environment variables in .env file
+/// // MONGO_DB_URL=your_mongodb_connection_string
+/// // PORT=your_preferred_port (defaults to 3001)
+/// 
+/// // Run the server
+/// node server.js
+/// ```
+/// 
+/// EN: Sets up a production-ready Express server with MongoDB connection, authentication routes, and serves a Flutter web application.
+/// DE: Richtet einen produktionsbereiten Express-Server mit MongoDB-Verbindung, Authentifizierungsrouten ein und stellt eine Flutter-Web-Anwendung bereit.
+
 const express = require('express');  // Import Express framework.  // Importiert das Express-Framework.
 const mongoose = require('mongoose');  // Import Mongoose for MongoDB interactions.  // Importiert Mongoose für die Interaktion mit MongoDB.
 const dotenv = require('dotenv');  // Import dotenv to load environment variables.  // Importiert dotenv, um Umgebungsvariablen zu laden.
