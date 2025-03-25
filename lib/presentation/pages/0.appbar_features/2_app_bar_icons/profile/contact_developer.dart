@@ -1,3 +1,19 @@
+/// ContactDeveloperDialog
+/// 
+/// A dialog widget that displays contact information for the application developer. // Ein Dialog-Widget, das Kontaktinformationen für den Anwendungsentwickler anzeigt.
+/// Used when users need support, want to report bugs, or have general inquiries. // Wird verwendet, wenn Benutzer Support benötigen, Fehler melden oder allgemeine Anfragen haben möchten.
+/// 
+/// Usage:
+/// ```dart
+/// showDialog(
+///   context: context,
+///   builder: (context) => const ContactDeveloper(),
+/// );
+/// ```
+/// 
+/// EN: Displays a dialog with the developer's email address and purpose description in a selectable format.
+/// DE: Zeigt einen Dialog mit der E-Mail-Adresse des Entwicklers und einer Zweckbeschreibung in einem auswählbaren Format an.
+
 import 'package:flutter/material.dart';  // Imports the Flutter Material Design package.  // Importiert das Flutter Material Design Paket.
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports the Riverpod state management package.  // Importiert das Riverpod State-Management-Paket.
 
