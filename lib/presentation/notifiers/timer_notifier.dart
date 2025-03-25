@@ -1,3 +1,27 @@
+/// PomodoroTimerController
+/// 
+/// A comprehensive timer controller that manages all aspects of the Pomodoro timing system. // Ein umfassender Timer-Controller, der alle Aspekte des Pomodoro-Zeitsystems verwaltet.
+/// Handles timer states, audio notifications, browser notifications, and synchronization across web platforms. // Verwaltet Timer-Zustände, Audio-Benachrichtigungen, Browser-Benachrichtigungen und Synchronisation über Web-Plattformen.
+/// 
+/// Usage:
+/// ```dart
+/// final timerNotifierProvider = StateNotifierProvider<TimerNotifier, int>((ref) {
+///   final audioPlayer = ref.watch(audioPlayerProvider);
+///   final timerNotifier = TimerNotifier(initialSeconds, ref, audioPlayer);
+///   timerNotifier.init();
+///   return timerNotifier;
+/// });
+/// 
+/// // Start the timer
+/// ref.read(timerNotifierProvider.notifier).startTimer();
+/// 
+/// // Stop the timer
+/// ref.read(timerNotifierProvider.notifier).stopTimer();
+/// ```
+/// 
+/// EN: Manages the complete Pomodoro timer lifecycle with JavaScript integration, notifications, sound playback, and persistent state across browser sessions.
+/// DE: Verwaltet den kompletten Pomodoro-Timer-Lebenszyklus mit JavaScript-Integration, Benachrichtigungen, Tonwiedergabe und persistentem Zustand über Browser-Sitzungen hinweg.
+
 import 'dart:async';  // Imports async functionality for Futures and Streams.  // Importiert asynchrone Funktionalität für Futures und Streams. 
 import 'dart:html' as html;  // Imports HTML functionality for web interactions.  // Importiert HTML-Funktionalität für Web-Interaktionen.
 import 'dart:js' as js;  // Imports JavaScript interoperability.  // Importiert JavaScript-Interoperabilität.
