@@ -1,3 +1,23 @@
+/// TimerProviderConfiguration
+/// 
+/// A configuration module that connects user preferences with timer functionality for the Pomodoro application. // Ein Konfigurationsmodul, das Benutzereinstellungen mit der Timer-Funktionalität für die Pomodoro-Anwendung verbindet.
+/// Creates and configures timer instances with personalized durations for Pomodoro sessions and breaks. // Erstellt und konfiguriert Timer-Instanzen mit personalisierten Dauern für Pomodoro-Sitzungen und Pausen.
+/// 
+/// Usage:
+/// ```dart
+/// // Access the configured timer
+/// final timer = ref.watch(timerNotifierProvider);
+/// 
+/// // Get personalized session durations
+/// final pomodoroDuration = ref.watch(userPomodoroTimerProvider);
+/// final shortBreakDuration = ref.watch(userShortBreakTimerProvider);
+/// final longBreakDuration = ref.watch(userLongBreakTimerProvider);
+/// ```
+/// 
+/// EN: Provides state providers that integrate user preferences with timer functionality, automatically configuring timers based on session type and user settings.
+/// DE: Stellt State-Provider bereit, die Benutzereinstellungen mit der Timer-Funktionalität integrieren und Timer automatisch basierend auf Sitzungstyp und Benutzereinstellungen konfigurieren.
+
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Imports Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung.
 import '../repository/auth_repository.dart';  // Imports the authentication repository.  // Importiert das Authentifizierungs-Repository. 
 import 'providers.dart';  // Imports other providers.  // Importiert andere Provider.
