@@ -1,3 +1,20 @@
+/// PersistentContainerIndexNotifier
+/// 
+/// A state management class that synchronizes the selected container index across local state, storage, and server. // Eine State-Management-Klasse, die den ausgewählten Container-Index zwischen lokalem State, Speicher und Server synchronisiert.
+/// Used to maintain consistent UI selection state across app sessions and device logins. // Wird verwendet, um einen konsistenten UI-Auswahlzustand über App-Sitzungen und Geräte-Logins hinweg aufrechtzuerhalten.
+/// 
+/// Usage:
+/// ```dart
+/// // Read the current container index
+/// final currentIndex = ref.watch(persistentContainerIndexProvider);
+/// 
+/// // Update the container index
+/// ref.read(persistentContainerIndexProvider.notifier).updateIndex(2);
+/// ```
+/// 
+/// EN: Manages and persists the selected tab or container index with three-way synchronization between UI state, local storage, and server.
+/// DE: Verwaltet und persistiert den ausgewählten Tab- oder Container-Index mit Drei-Wege-Synchronisation zwischen UI-Zustand, lokalem Speicher und Server.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für das State-Management. 
 import '../repository/auth_repository.dart';  // Import the authentication repository.  // Importiert das Authentifizierungs-Repository.
 import '../repository/local_storage_repository.dart';  // Import the local storage repository.  // Importiert das lokale Speicher-Repository.
