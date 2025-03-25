@@ -1,3 +1,24 @@
+/// NotificationToggle
+/// 
+/// A state management class for browser notifications in Flutter web applications. // Eine Zustandsverwaltungsklasse für Browser-Benachrichtigungen in Flutter-Web-Anwendungen.
+/// Controls permission requests, state persistence, and toggling of browser notification settings. // Steuert Berechtigungsanfragen, Zustandspersistenz und das Umschalten von Browser-Benachrichtigungseinstellungen.
+/// 
+/// Usage:
+/// ```dart
+/// final notificationToggleProvider = StateNotifierProvider<NotificationToggle, bool>((ref) {
+///   return NotificationToggle();
+/// });
+/// 
+/// // To read current state
+/// final isEnabled = ref.watch(notificationToggleProvider);
+/// 
+/// // To toggle notifications
+/// ref.read(notificationToggleProvider.notifier).toggle();
+/// ```
+/// 
+/// EN: Manages browser notification permissions with persistent storage and user permission handling for web applications.
+/// DE: Verwaltet Browser-Benachrichtigungsberechtigungen mit persistenter Speicherung und Benutzerberechtigungshandling für Web-Anwendungen.
+
 import 'dart:html' as html;  // Import Dart's HTML library for web browser functionality.  // Importiert Darts HTML-Bibliothek für Webbrowser-Funktionalität.
 import 'package:flutter_riverpod/flutter_riverpod.dart';  // Import Riverpod for state management.  // Importiert Riverpod für die Zustandsverwaltung.
 import '../../infrastructure/data_sources/hive_services.dart';  // Import local Hive database service.  // Importiert den lokalen Hive-Datenbankdienst. 
