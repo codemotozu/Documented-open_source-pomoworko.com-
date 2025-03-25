@@ -1,3 +1,32 @@
+/// PomodoroApp
+/// 
+/// A productivity application featuring a Pomodoro timer, task management, and time tracking functionality. // Eine Produktivitätsanwendung mit Pomodoro-Timer, Aufgabenverwaltung und Zeiterfassungsfunktionalität.
+/// Seamlessly synchronizes user preferences, timer settings, and project data between devices. // Synchronisiert Benutzereinstellungen, Timer-Einstellungen und Projektdaten nahtlos zwischen Geräten.
+/// 
+/// Features / Funktionen:
+/// - Customizable Pomodoro timers with short and long breaks / Anpassbare Pomodoro-Timer mit kurzen und langen Pausen
+/// - Task management with card-based interface / Aufgabenverwaltung mit kartenbasierter Benutzeroberfläche
+/// - Project tracking with time statistics / Projektverfolgung mit Zeitstatistiken
+/// - User authentication and cloud synchronization / Benutzerauthentifizierung und Cloud-Synchronisation
+/// - Dark and light theme support / Unterstützung für dunkles und helles Thema
+/// - Browser notifications / Browser-Benachrichtigungen
+/// - Customizable sounds and colors / Anpassbare Töne und Farben
+/// - Offline support with local storage / Offline-Unterstützung mit lokalem Speicher
+/// 
+/// Usage:
+/// ```dart
+/// void main() {
+///   runApp(
+///     const ProviderScope(
+///       child: MyApp(),
+///     ),
+///   );
+/// }
+/// ```
+/// 
+/// EN: Main entry point for the Pomodoro productivity application, handling initialization, state management, and routing.
+/// DE: Haupteinstiegspunkt für die Pomodoro-Produktivitätsanwendung, die Initialisierung, Zustandsverwaltung und Routing behandelt.
+
 import 'dart:html' as html;  // Import HTML library for web browser integration.  // Importiert die HTML-Bibliothek für die Webbrowser-Integration.
 
 import 'package:flutter/material.dart';  // Import core Flutter material design package.  // Importiert das Flutter Material Design Kernpaket.
