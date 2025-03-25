@@ -1,3 +1,20 @@
+/// AuthRouter
+/// 
+/// A comprehensive Express router that handles user authentication, account management, and productivity features. // Ein umfassender Express-Router, der Benutzerauthentifizierung, Kontoverwaltung und Produktivitätsfunktionen verwaltet.
+/// Manages user signup, login, settings updates, time tracking, and Pomodoro timer configurations. // Verwaltet Benutzerregistrierung, Anmeldung, Einstellungsaktualisierungen, Zeiterfassung und Pomodoro-Timer-Konfigurationen.
+/// 
+/// Usage:
+/// ```javascript
+/// const express = require("express");
+/// const app = express();
+/// const authRouter = require("./routes/auth");
+/// 
+/// app.use("/auth", authRouter);
+/// ```
+/// 
+/// EN: Provides a complete authentication and user settings management system for a productivity application with Pomodoro timer, project tracking, and time management features.
+/// DE: Bietet ein vollständiges Authentifizierungs- und Benutzerkonfigurationssystem für eine Produktivitätsanwendung mit Pomodoro-Timer, Projektverfolgung und Zeitmanagementfunktionen.
+
 const express = require("express");  // Import Express framework.  // Express-Framework importieren.
 const User = require("../models/user");  // Import User model.  // Benutzer-Modell importieren.
 const jwt = require("jsonwebtoken");  // Import JSON Web Token for authentication.  // JSON Web Token für Authentifizierung importieren.
