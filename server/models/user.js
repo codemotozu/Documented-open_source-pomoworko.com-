@@ -1,3 +1,38 @@
+/// UserModel
+/// 
+/// A Mongoose schema defining the user data structure for a productivity application with premium features. // Ein Mongoose-Schema, das die Benutzerdatenstruktur für eine Produktivitätsanwendung mit Premium-Funktionen definiert.
+/// Includes user profile information, subscription status, and personalized settings for productivity tools. // Enthält Benutzerprofilinformationen, Abonnementstatus und personalisierte Einstellungen für Produktivitätstools.
+/// 
+/// Features / Funktionen:
+/// - User authentication data (name, email, profile picture) / Benutzerauthentifizierungsdaten (Name, E-Mail, Profilbild)
+/// - Premium subscription management / Verwaltung von Premium-Abonnements
+/// - PayPal payment integration / PayPal-Zahlungsintegration
+/// - Timezone handling with Luxon / Zeitzonen-Verwaltung mit Luxon
+/// - Pomodoro timer customization / Anpassung des Pomodoro-Timers
+/// - Task and project management / Aufgaben- und Projektverwaltung
+/// - Time tracking functionality / Zeiterfassungsfunktionalität
+/// 
+/// Usage / Verwendung:
+/// ```javascript
+/// const User = require('./models/User');
+/// 
+/// // Create a new user
+/// const newUser = new User({
+///   name: 'John Doe',
+///   email: 'john@example.com',
+///   profilePic: 'https://example.com/profile.jpg',
+///   userLocalTimeZone: 'Europe/Berlin',
+///   iana: 'Europe/Berlin',
+///   convertUserLocalTimeZoneToUTC: '+01:00',
+///   currentTimeZoneVersion: '2023c'
+/// });
+/// 
+/// await newUser.save();
+/// ```
+/// 
+/// EN: Defines the MongoDB user document structure with comprehensive settings for productivity features and subscription management.
+/// DE: Definiert die MongoDB-Benutzerdokumentstruktur mit umfassenden Einstellungen für Produktivitätsfunktionen und Abonnementverwaltung.
+
 const mongoose = require("mongoose");  // Import the mongoose library for MongoDB interaction.  // Importiert die Mongoose-Bibliothek für die MongoDB-Interaktion.
 const { DateTime } = require("luxon");  // Import the DateTime class from the luxon library for date handling.  // Importiert die DateTime-Klasse aus der Luxon-Bibliothek zur Datumsverarbeitung.
 
