@@ -1,7 +1,9 @@
 # Pomoworko - Modern Pomodoro Timer Application
 
 <div align="center">
-  <img src="https://github.com/codemotozu/Documented-open_source-pomoworko.com-/blob/main/assets/images/logo_primary.png" width="200" alt="[Pomoworko Logo](https://pomoworko.com/)">
+  <a href="https://pomoworko.com/">
+    <img src="https://github.com/codemotozu/Documented-open_source-pomoworko.com-/blob/main/assets/images/logo_primary.png" width="200" alt="Pomoworko Logo">
+  </a>
 </div>
 
 ## 🌍 Languages | Sprachen
