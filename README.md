@@ -51,6 +51,7 @@ A modern, cross-platform Pomodoro Timer application built with Flutter that help
 - **Storage**: Hive for local storage, MongoDB for cloud storage
 - **Notifications**: Browser notifications API
 - **Scheduling**: Agenda.js for job scheduling
+- **CI/CD**: GitHub Actions for continuous integration and deployment to Heroku
 
 ### Code Organization
 
@@ -66,6 +67,7 @@ The codebase is organized into several key directories:
   - **`routes/`**: API endpoints
   - **`middlewares/`**: Auth and other middleware
   - **`config/`**: Server configuration
+- **`.github/workflows/`**: CI/CD pipeline configurations
 
 ## 🚀 Getting Started
 
@@ -156,6 +158,33 @@ The application can be deployed as:
 - Mobile app on iOS and Android app stores
 - Desktop application for Windows, macOS, and Linux
 
+### CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment to Heroku:
+
+- **Automatic Triggers**: The pipeline runs automatically when code is pushed to the main branch or when pull requests target the main branch
+- **Flutter Build Process**: 
+  - Sets up Flutter environment with stable channel
+  - Fetches project dependencies
+  - Builds the Flutter web application
+- **Heroku Deployment**: 
+  - Configures necessary Heroku files (Procfile, package.json)
+  - Deploys the built web application to Heroku
+  - Sets up a Python HTTP server to serve the static files
+
+To set up the CI/CD pipeline:
+
+1. Add the following secrets to your GitHub repository:
+   - `HEROKU_API_KEY`: Your Heroku API key
+   
+2. Update the Heroku app name and email in the workflow file (`.github/workflows/flutter-build.yml`) if needed:
+   ```yaml
+   heroku_app_name: "your-app-name"
+   heroku_email: "your-email@example.com"
+   ```
+
+3. Ensure your Flutter project directory structure matches the one expected by the workflow
+
 ## 🔮 Future Enhancements
 
 - Enhanced analytics with detailed productivity reports
@@ -204,6 +233,7 @@ Eine moderne, plattformübergreifende Pomodoro-Timer-Anwendung, entwickelt mit F
 - **Speicherung**: Hive für lokale Speicherung, MongoDB für Cloud-Speicherung
 - **Benachrichtigungen**: Browser-Benachrichtigungs-API
 - **Zeitplanung**: Agenda.js für Job-Scheduling
+- **CI/CD**: GitHub Actions für kontinuierliche Integration und Bereitstellung auf Heroku
 
 ### Code-Organisation
 
@@ -219,6 +249,7 @@ Der Quellcode ist in mehrere Schlüsselverzeichnisse organisiert:
   - **`routes/`**: API-Endpunkte
   - **`middlewares/`**: Auth und andere Middleware
   - **`config/`**: Server-Konfiguration
+- **`.github/workflows/`**: CI/CD-Pipeline-Konfigurationen
 
 ## 🚀 Erste Schritte
 
@@ -292,6 +323,33 @@ Die Anwendung kann bereitgestellt werden als:
 - Webanwendung auf Plattformen wie Firebase Hosting oder Vercel
 - Mobile App in iOS- und Android-App-Stores
 - Desktop-Anwendung für Windows, macOS und Linux
+
+### CI/CD-Pipeline
+
+Dieses Projekt verwendet GitHub Actions für kontinuierliche Integration und Bereitstellung auf Heroku:
+
+- **Automatische Auslöser**: Die Pipeline wird automatisch ausgeführt, wenn Code in den Main-Branch gepusht wird oder wenn Pull-Requests auf den Main-Branch abzielen
+- **Flutter-Build-Prozess**: 
+  - Richtet die Flutter-Umgebung mit stabilem Kanal ein
+  - Holt Projektabhängigkeiten
+  - Erstellt die Flutter-Web-Anwendung
+- **Heroku-Bereitstellung**: 
+  - Konfiguriert notwendige Heroku-Dateien (Procfile, package.json)
+  - Stellt die erstellte Web-Anwendung auf Heroku bereit
+  - Richtet einen Python-HTTP-Server ein, um die statischen Dateien zu bedienen
+
+Um die CI/CD-Pipeline einzurichten:
+
+1. Fügen Sie Ihrem GitHub-Repository die folgenden Secrets hinzu:
+   - `HEROKU_API_KEY`: Ihr Heroku-API-Schlüssel
+   
+2. Aktualisieren Sie bei Bedarf den Heroku-App-Namen und die E-Mail in der Workflow-Datei (`.github/workflows/flutter-build.yml`):
+   ```yaml
+   heroku_app_name: "ihr-app-name"
+   heroku_email: "ihre-email@example.com"
+   ```
+
+3. Stellen Sie sicher, dass Ihre Flutter-Projektverzeichnisstruktur der vom Workflow erwarteten entspricht
 
 ## 🔮 Zukünftige Erweiterungen
 
