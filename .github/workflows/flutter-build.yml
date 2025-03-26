@@ -1,0 +1,79 @@
+/// FlutterWebBuildAndHerokuDeploy
+/// 
+/// A GitHub Actions workflow that automates building and deploying a Flutter web application to Heroku. // Ein GitHub Actions Workflow, der das Bauen und Bereitstellen einer Flutter-Web-Anwendung auf Heroku automatisiert.
+/// Triggers automatically when code is pushed to the main branch or when pull requests target the main branch. // Wird automatisch ausgelöst, wenn Code in den Main-Branch gepusht wird oder wenn Pull-Requests auf den Main-Branch abzielen.
+/// 
+/// Usage:
+/// This workflow runs automatically on configured triggers. To manually trigger it:
+/// ```bash
+/// # Push to the main branch
+/// git push origin main
+/// 
+/// # Or create a pull request targeting main
+/// ```
+/// 
+/// EN: Automates the process of building a Flutter web application and deploying it to Heroku with proper configuration.
+/// DE: Automatisiert den Prozess des Bauens einer Flutter-Web-Anwendung und ihrer Bereitstellung auf Heroku mit korrekter Konfiguration.
+
+name: Flutter Web Build and Heroku Deploy  # Name of the workflow that appears in GitHub Actions UI.  # Name des Workflows, der in der GitHub Actions-Benutzeroberfläche angezeigt wird.
+
+on:  # Defines when the workflow will run.  # Definiert, wann der Workflow ausgeführt wird.
+  push:  # Trigger on push events.  # Auslösen bei Push-Ereignissen.
+    branches: [ main ]  # Only when pushing to the main branch.  # Nur beim Pushen in den Main-Branch.
+  pull_request:  # Trigger on pull request events.  # Auslösen bei Pull-Request-Ereignissen.
+    branches: [ main ]  # Only when the target is the main branch.  # Nur wenn das Ziel der Main-Branch ist.
+
+jobs:  # Defines the jobs that make up the workflow.  # Definiert die Jobs, aus denen der Workflow besteht.
+  build-and-deploy:  # Name of the job.  # Name des Jobs.
+    runs-on: ubuntu-latest  # Specifies the runner environment (Ubuntu).  # Gibt die Runner-Umgebung an (Ubuntu).
+    
+    steps:  # Sequence of tasks that will be executed.  # Abfolge der Aufgaben, die ausgeführt werden.
+    - uses: actions/checkout@v2  # Checks out the repository code.  # Checkt den Repository-Code aus.
+    
+    # Set up Flutter
+    - name: Set up Flutter  # Step name for installing Flutter.  # Schrittname für die Installation von Flutter.
+      uses: subosito/flutter-action@v2  # Uses the Flutter action from subosito.  # Verwendet die Flutter-Aktion von subosito.
+      with:  # Configuration parameters for the action.  # Konfigurationsparameter für die Aktion.
+        flutter-version: '3.x'  # Specifies Flutter major version 3.  # Gibt die Flutter-Hauptversion 3 an.
+        channel: 'stable'  # Uses the stable Flutter release channel.  # Verwendet den stabilen Flutter-Release-Kanal.
+    
+    # Navigate to Flutter project directory and get dependencies
+    - name: Get dependencies  # Step name for fetching dependencies.  # Schrittname für das Abrufen von Abhängigkeiten.
+      working-directory: ./pomoworkoheroku  # Changes to the Flutter project directory.  # Wechselt in das Flutter-Projektverzeichnis.
+      run: flutter pub get  # Runs the command to fetch dependencies.  # Führt den Befehl zum Abrufen der Abhängigkeiten aus.
+    
+    # Build Flutter web in the correct directory
+    - name: Build Flutter web  # Step name for building the web application.  # Schrittname für das Erstellen der Web-Anwendung.
+      working-directory: ./pomoworkoheroku  # Uses the Flutter project directory.  # Verwendet das Flutter-Projektverzeichnis.
+      run: flutter build web  # Compiles the Flutter app for web.  # Kompiliert die Flutter-App für das Web.
+    
+    # Copy build files to parent directory (root)
+    - name: Copy build files to root  # Step name for copying build files.  # Schrittname für das Kopieren der Build-Dateien.
+      run: |  # Runs multiple commands.  # Führt mehrere Befehle aus.
+        cp -r pomoworkoheroku/build/web/* ./  # Copies web build files to root directory.  # Kopiert Web-Build-Dateien in das Wurzelverzeichnis.
+        rm -rf pomoworkoheroku/build  # Removes the original build directory.  # Entfernt das ursprüngliche Build-Verzeichnis.
+    
+    # Add required Heroku files
+    - name: Setup Heroku files  # Step name for creating Heroku configuration.  # Schrittname für das Erstellen der Heroku-Konfiguration.
+      run: |  # Runs multiple commands.  # Führt mehrere Befehle aus.
+        if [ ! -f "Procfile" ]; then  # Checks if Procfile doesn't exist.  # Prüft, ob Procfile nicht existiert.
+          echo "web: python -m http.server \$PORT" > Procfile  # Creates a Procfile with Python HTTP server.  # Erstellt eine Procfile mit Python-HTTP-Server.
+        fi
+        
+        # Ensure package.json exists
+        if [ ! -f "package.json" ]; then  # Checks if package.json doesn't exist.  # Prüft, ob package.json nicht existiert.
+          echo '{"name": "pomoworko_app","version": "1.0.0","engines": {"node": "16.x"}}' > package.json  # Creates basic package.json.  # Erstellt eine grundlegende package.json.
+        fi
+
+    # Install Heroku CLI
+    - name: Install Heroku CLI  # Step name for installing Heroku CLI.  # Schrittname für die Installation der Heroku CLI.
+      run: |  # Runs multiple commands.  # Führt mehrere Befehle aus.
+        curl https://cli-assets.heroku.com/install.sh | sh  # Downloads and installs Heroku CLI.  # Lädt die Heroku CLI herunter und installiert sie.
+    
+    # Deploy to Heroku
+    - name: Deploy to Heroku  # Step name for the Heroku deployment.  # Schrittname für die Heroku-Bereitstellung.
+      uses: akhileshns/heroku-deploy@v3.12.14  # Uses the Heroku deployment action.  # Verwendet die Heroku-Bereitstellungsaktion.
+      with:  # Configuration parameters for the action.  # Konfigurationsparameter für die Aktion.
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}  # API key stored in GitHub secrets.  # API-Schlüssel, der in GitHub-Secrets gespeichert ist.
+        heroku_app_name: "pomoworko"  # Target Heroku application name.  # Ziel-Heroku-Anwendungsname.
+        heroku_email: "xxxxx@hotmail.com"  # Heroku account email.  # Heroku-Konto-E-Mail.
