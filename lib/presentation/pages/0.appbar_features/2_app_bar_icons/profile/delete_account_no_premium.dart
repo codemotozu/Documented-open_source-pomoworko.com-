@@ -1,3 +1,19 @@
+/// AccountDeletionDialog
+/// 
+/// A confirmation dialog that allows non-premium users to delete their account. // Ein Bestätigungsdialog, der Nicht-Premium-Benutzern ermöglicht, ihr Konto zu löschen.
+/// Used when users want to permanently remove their account and all associated data from the application. // Wird verwendet, wenn Benutzer ihr Konto und alle zugehörigen Daten dauerhaft aus der Anwendung entfernen möchten.
+/// 
+/// Usage:
+/// ```dart
+/// showDialog(
+///   context: context,
+///   builder: (context) => const DeleteAccountNoPremium(),
+/// );
+/// ```
+/// 
+/// EN: Displays a warning dialog with information about permanent data loss and provides options to cancel or confirm account deletion.
+/// DE: Zeigt einen Warnhinweis mit Informationen über permanenten Datenverlust und bietet Optionen zum Abbrechen oder Bestätigen der Kontolöschung.
+
 import 'package:flutter/cupertino.dart'; // Imports Cupertino widgets from Flutter. // Importiert Cupertino-Widgets aus Flutter.
 import 'package:flutter/material.dart'; // Imports Material Design widgets from Flutter. // Importiert Material Design-Widgets aus Flutter.
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Imports Riverpod for state management. // Importiert Riverpod für die Zustandsverwaltung.
