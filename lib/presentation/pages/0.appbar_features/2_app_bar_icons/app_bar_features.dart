@@ -2,7 +2,7 @@
 /// 
 /// A custom app bar widget for the Pomodoro timer application. // Eine benutzerdefinierte App-Bar für die Pomodoro-Timer-Anwendung.
 /// This widget handles user authentication, navigation, and provides access to various app features. // Dieses Widget behandelt Benutzerauthentifizierung, Navigation und bietet Zugriff auf verschiedene App-Funktionen.
-/// 
+///  
 /// Usage:
 /// ```dart
 /// Scaffold(
